@@ -1,0 +1,48 @@
+$topPanelBg: gray;
+$bottomPanelBg: gray;
+$leftPanelBg: black;
+$rightPanelBg: gray;
+.canvas {
+    border: 1px solid red;
+    width: 80vw;
+    height: 80vh;
+    position: absolute;
+    top: 10vh;
+    left: 10vw;
+}
+
+.top-panel {
+    background-color: $topPanelBg;
+    width: 100vw;
+    height: 10vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.bottom-panel {
+    background-color: $bottomPanelBg;
+    width: 100vw;
+    height: 10vh;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.left-panel {
+    background-color: $leftPanelBg;
+    width: 10vw;
+    height: 80vh;
+    position: absolute;
+    bottom: 10vh;
+    left: 0;
+}
+
+.right-panel {
+    background-color: $leftPanelBg;
+    width: 10vw;
+    height: 80vh;
+    position: absolute;
+    bottom: 10vh;
+    right: 0;
+}
