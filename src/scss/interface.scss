@@ -2,19 +2,25 @@ $topPanelBg: gray;
 $bottomPanelBg: gray;
 $leftPanelBg: black;
 $rightPanelBg: gray;
-.canvas {
-    border: 1px solid red;
-    width: 80vw;
-    height: 80vh;
+.canvas-block {
+    width: 100vw;
+    height: 75vh;
     position: absolute;
-    top: 10vh;
-    left: 10vw;
+    top: 15vh;
+}
+
+.canvas {
+    outline: 5px solid red;
+    outline-offset: -5px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .top-panel {
     background-color: $topPanelBg;
     width: 100vw;
-    height: 10vh;
+    height: 15vh;
     position: absolute;
     top: 0;
     left: 0;
