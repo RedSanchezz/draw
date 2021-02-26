@@ -1,4 +1,6 @@
 import {defaultSetting}from "./PaintDefaultSetting"
+import BrushManager from "./BrushManager/BrushManager"
+import ToolManager from "./ToolManager/ToolManager";
 
 export default class Paint{
 
@@ -6,14 +8,19 @@ export default class Paint{
         this._canvas = document.getElementById("canvas");
         this._ctx = this._canvas.getContext("2d");
         
-        
         defaultSetting(this._canvas, this._ctx);
         // this._context.fillRect(10, 10, 50, 50);
         this._ctx.beginPath();
-        this._ctx.moveTo(300, 500);
+        this._ctx.moveTo(100, 100);
         this._ctx.lineTo(100, 100);
         this._ctx.stroke();
+        
+        this._toolManager = new ToolManager(this._canvas, this._ctx);
+        this._toolManager.setBrush();
     }
+
+    
+
 
     getContext(){
         return this._context;
@@ -22,21 +29,9 @@ export default class Paint{
         return this._canvas;
     }
 
+    getBrushManager(){
+        return new BrushManager(this._ctx);
+    }
     //настройки кисти
-    setLineWidth(width){
-        this._ctx=width;
-    }
-    getLineWidth(){
-        return this._ctx;
-    }
-    setLineCap(lineCap){
-        this._ctx.lineCap = lineCap;
-    }
-    getLineCap(){
-        return this._ctx.lineCap;
-    }
-    setColor(color){
-        this._ctx.fillStyle=color;
-        this._ctx.strokeStyle=color;
-    }
+
 }

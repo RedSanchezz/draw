@@ -7,11 +7,9 @@ export function defaultSetting(canvas, ctx){
 function defaultBranch(ctx){
     ctx.fillStyle="red";
     ctx.strokeStyle = "red";
-
-
     //стили линий
+    
     ctx.lineWidth = "40";
     ctx.lineCap = "round"; // определяет концы линий
     ctx.lineJoin = "round"; // как будут сходитться линии
-
 }
