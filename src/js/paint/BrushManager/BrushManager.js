@@ -2,6 +2,7 @@
 export default class BrushManager{
     constructor(ctx){
         this._ctx = ctx;
+
     }
 
     setLineWidth(width){

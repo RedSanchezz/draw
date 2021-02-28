@@ -36,4 +36,6 @@ export default class ListenerManager{
             obj.element.removeEventListener(obj.event, obj.func);
         }
     }
+
+
 }

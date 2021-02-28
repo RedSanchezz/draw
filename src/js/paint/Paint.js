@@ -14,7 +14,6 @@ export default class Paint{
         this._toolManager.setBrush();
     }
 
-    
     getContext(){
         return this._context;
     }
