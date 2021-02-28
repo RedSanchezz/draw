@@ -9,7 +9,6 @@ $rightPanelBg: gray;
     position: absolute;
     top: 15vh;
 }
-
 .canvas {
     outline: 5px solid red;
     outline-offset: -5px;
@@ -17,9 +16,7 @@ $rightPanelBg: gray;
     top: 0;
     left: 0;
     cursor: none;
-  
 }
-
 .top-panel {
     background-color: $topPanelBg;
     width: 100vw;
