@@ -1,14 +1,14 @@
+//класс определяет свойства кисти
 export default class BrushManager{
-
     constructor(ctx){
         this._ctx = ctx;
     }
 
     setLineWidth(width){
-        this._ctx=width;
+        this._ctx.lineWidth=width;
     }
     getLineWidth(){
-        return this._ctx;
+        return this._ctx.lineWidth;
     }
 
     setLineCap(lineCap){
@@ -23,4 +23,5 @@ export default class BrushManager{
         this._ctx.fillStyle=color;
         this._ctx.strokeStyle=color;
     }
+
 }

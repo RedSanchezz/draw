@@ -20,8 +20,6 @@ export default class Paint{
     }
 
     
-
-
     getContext(){
         return this._context;
     }

@@ -1,3 +1,4 @@
+@import "pointers/brushPointer.scss";
 $topPanelBg: gray;
 $bottomPanelBg: gray;
 $leftPanelBg: black;
@@ -16,6 +17,7 @@ $rightPanelBg: gray;
     top: 0;
     left: 0;
     cursor: none;
+  
 }
 
 .top-panel {

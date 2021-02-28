@@ -1,9 +1,13 @@
+import BrushManager from "../BrushManager/BrushManager";
+import PointerManager from "./PointerManager/PointerManager";
+
+
+//класс для выбора инструмента рисования
 export default class ToolManager{
 
     constructor(canvas, ctx){
         this._canvas = canvas;
         this._ctx = ctx;
-        console.log(this._ctx);
         this._canvasBlock = document.querySelector(".canvas-block");
         this._listeners = [];
     }
@@ -15,11 +19,13 @@ export default class ToolManager{
                 break;
             }
         }
-
     }
     setBrush(){
         let ctx = this._ctx;
         let end=false;
+        
+        new PointerManager(this._canvas, this._ctx).setBrushPointer();
+
         this.addListener(this._canvas, "mousedown", (e)=>{
             console.log(ctx);
             ctx.beginPath();
@@ -39,14 +45,14 @@ export default class ToolManager{
 
         this.addListener(this._canvas, "mouseup", (e)=>{
             if(!end){
-                this.removeListenersByEvent("mousemove");
+                this.removeListenersByEvent(this._canvas, "mousemove");
                 end=true;
             }
         });
 
         this.addListener(this._canvasBlock, "mouseleave", (e)=>{
             if(!end){
-                this.removeListenersByEvent("mousemove");
+                this.removeListenersByEvent(this._canvas, "mousemove");
                 end=true;
             }
         });
@@ -66,9 +72,9 @@ export default class ToolManager{
         let obj= this._listeners.pop();
         obj.element.removeEventListener(obj.event, obj.func);
     }
-    removeListenersByEvent(event){
+    removeListenersByEvent(element, event){
         for(let i=0; i< this._listeners.length; i++){
-            if(this._listeners[i].event===event){
+            if(this._listeners[i].event===event && this._listeners[i].element===element){
                 let obj = this._listeners[i];
                 obj.element.removeEventListener(obj.event, obj.func);
                 this._listeners.splice(i, 1);
