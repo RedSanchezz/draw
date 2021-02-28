@@ -29,8 +29,8 @@ export default class ToolManager{
             ctx.closePath();
             let x = e.offsetX;
             let y= e.offsetY;
+            end=false;
             this.addListener(this._canvas, "mousemove", (e) => {
-                end=false;
                 drawLine(this._ctx, x, y, e.offsetX , e.offsetY);
                 x=e.offsetX;
                 y=e.offsetY;
@@ -39,14 +39,14 @@ export default class ToolManager{
 
         this.addListener(this._canvas, "mouseup", (e)=>{
             if(!end){
-                this.removeLastListener();
+                this.removeListenersByEvent("mousemove");
                 end=true;
             }
         });
 
         this.addListener(this._canvasBlock, "mouseleave", (e)=>{
             if(!end){
-                this.removeLastListener();
+                this.removeListenersByEvent("mousemove");
                 end=true;
             }
         });
@@ -65,6 +65,15 @@ export default class ToolManager{
     removeLastListener(){
         let obj= this._listeners.pop();
         obj.element.removeEventListener(obj.event, obj.func);
+    }
+    removeListenersByEvent(event){
+        for(let i=0; i< this._listeners.length; i++){
+            if(this._listeners[i].event===event){
+                let obj = this._listeners[i];
+                obj.element.removeEventListener(obj.event, obj.func);
+                this._listeners.splice(i, 1);
+            }
+        }
     }
     removeAllListener(){
         while(this._listeners.length!=0){
