@@ -9,12 +9,7 @@ export default class Paint{
         this._ctx = this._canvas.getContext("2d");
         
         defaultSetting(this._canvas, this._ctx);
-        // this._context.fillRect(10, 10, 50, 50);
-        this._ctx.beginPath();
-        this._ctx.moveTo(100, 100);
-        this._ctx.lineTo(100, 100);
-        this._ctx.stroke();
-        
+
         this._toolManager = new ToolManager(this._canvas, this._ctx);
         this._toolManager.setBrush();
     }
