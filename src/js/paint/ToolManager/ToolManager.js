@@ -11,8 +11,7 @@ export default class ToolManager{
         this._ctx = ctx;
         this._canvasBlock = document.querySelector(".canvas-block");
         this._listenerManager= new ListenerManager(new Array());
-        this._pointerManager = new PointerManager(this._canvas, this._ctx);
-        this._brushManager = new BrushManager(this._ctx);
+        this._brushManager = new BrushManager(this._canvas, this._ctx);
     }
     setTool(tool){
         switch(tool){
@@ -25,14 +24,10 @@ export default class ToolManager{
     setBrush(){
         let ctx = this._ctx;
         let end=false;
-        let brushColorInp = document.getElementById("brush-color-inp");
-        this._pointerManager.setBrushPointer();
+        this._brushManager.setPointer(1);
 
-        this._listenerManager.addListener(brushColorInp, 'input',  (e) => {
-            this._pointerManager.setColor(brushColorInp.value);
-            this._brushManager.setColor(brushColorInp.value);
-        })
 
+        
         this._listenerManager.addListener(this._canvas, "mousedown", (e)=>{
             console.log(ctx);
             ctx.beginPath();
@@ -64,7 +59,9 @@ export default class ToolManager{
             }
         });
     }
-
+    getBrushManager(){
+        return this._brushManager;
+    }
 }
 
 function drawLine(ctx,x1, y1, x2, y2 ){

@@ -1,8 +1,11 @@
+import PointerManager from "../ToolManager/PointerManager/PointerManager";
+
 //класс определяет свойства кисти
 export default class BrushManager{
-    constructor(ctx){
+    constructor(canvas, ctx){
+        this._canvas=canvas;
         this._ctx = ctx;
-
+        this._pointerManager= new PointerManager(this._canvas, this._ctx);
     }
 
     setLineWidth(width){
@@ -23,6 +26,12 @@ export default class BrushManager{
     setColor(color){
         this._ctx.fillStyle=color;
         this._ctx.strokeStyle=color;
+        this._pointerManager.setColor(color);
     }
-
+    setPointer(){
+        this._pointerManager.setBrushPointer();
+    }
+    removePointer(){
+        this._pointerManager.removePointer();
+    }
 }
