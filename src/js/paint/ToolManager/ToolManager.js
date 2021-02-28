@@ -43,14 +43,14 @@ export default class ToolManager{
             });
         });
 
-        this.addListener(this._canvas, "mouseup", (e)=>{
+        this.addListener(document.body, "mouseup", (e)=>{
             if(!end){
                 this.removeListenersByEvent(this._canvas, "mousemove");
                 end=true;
             }
         });
 
-        this.addListener(this._canvasBlock, "mouseleave", (e)=>{
+        this.addListener(document.body, "mouseleave", (e)=>{
             if(!end){
                 this.removeListenersByEvent(this._canvas, "mousemove");
                 end=true;
