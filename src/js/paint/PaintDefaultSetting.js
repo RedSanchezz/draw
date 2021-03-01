@@ -2,7 +2,7 @@ export function defaultSetting(canvas, ctx){
     let style=getComputedStyle(document.querySelector(".canvas-block"));
     canvas.setAttribute("height", style.height);
     canvas.setAttribute("width", style.width);
-    defaultBranch(ctx)
+    defaultBranch(ctx);
 }
 function defaultBranch(ctx){
     ctx.fillStyle="red";
