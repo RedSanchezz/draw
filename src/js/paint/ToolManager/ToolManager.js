@@ -29,7 +29,6 @@ export default class ToolManager{
 
         
         this._listenerManager.addListener(this._canvas, "mousedown", (e)=>{
-            console.log(ctx);
             ctx.beginPath();
             ctx.moveTo(e.offsetX, e.offsetY);
             ctx.lineTo(e.offsetX, e.offsetY);

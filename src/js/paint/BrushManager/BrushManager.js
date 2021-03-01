@@ -10,12 +10,14 @@ export default class BrushManager{
 
     setLineWidth(width){
         this._ctx.lineWidth=width;
+        this._pointerManager.updateWidth(width);
     }
     getLineWidth(){
         return this._ctx.lineWidth;
     }
 
     setLineCap(lineCap){
+        this._pointerManager.setLineWidth
         this._ctx.lineCap = lineCap;
     }
 
@@ -28,9 +30,12 @@ export default class BrushManager{
         this._ctx.strokeStyle=color;
         this._pointerManager.setColor(color);
     }
+
+
     setPointer(){
         this._pointerManager.setBrushPointer();
     }
+
     removePointer(){
         this._pointerManager.removePointer();
     }

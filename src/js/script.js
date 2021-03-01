@@ -7,11 +7,11 @@ let listenerManager = new ListenerManager(new Array());
 let brushManager= paint.getToolManager().getBrushManager();
 
 
-
 let brushColorInp = document.getElementById("brush-color-inp");
 
-
 brushManager.setColor(brushColorInp.value);
+brushManager.setLineWidth(100);
+
 listenerManager.addListener(brushColorInp, 'input',  (e) => {
     paint.getToolManager().getBrushManager().setColor(brushColorInp.value);
 });

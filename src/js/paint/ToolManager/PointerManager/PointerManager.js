@@ -14,15 +14,19 @@ export default class PointerManager{
     setBrushPointer(){
         let pointer = document.querySelector(".brush_pointer");
         this._pointerElem = pointer;
-        this._pointerElem.style.display= "block";
         pointer.style.width = new BrushManager(this._canvas, this._ctx).getLineWidth() + "px";
         pointer.style.height = new BrushManager(this._canvas, this._ctx).getLineWidth() + "px";
         this._pointerFunc = (e)=>{
+            this._pointerElem.style.display="block";
             let domRect = this._canvas.getBoundingClientRect();
             pointer.style.top = e.offsetY - parseInt(getComputedStyle(pointer).width)/2 + "px";
             pointer.style.left = e.offsetX - parseInt(getComputedStyle(pointer).height)/2 + "px";
         }
         this._listenerManager.addListener(this._canvas, "mousemove", this._pointerFunc)
+
+        this._listenerManager.addListener(this._canvas, "mouseleave", (params) => {
+            this._pointerElem.style.display="none";
+        })
     }
     removePointer(){
         this._listenerManager.removeListener(this._canvas, "mousemove", this._pointerFunc);
@@ -33,5 +37,9 @@ export default class PointerManager{
     }
     getPointer(){
         return this._pointerElem;
+    }
+    updateWidth(width){
+        this._pointerElem.style.width = width+"px";
+        this._pointerElem.style.height = width+"px";
     }
 }
