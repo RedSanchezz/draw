@@ -1,7 +1,8 @@
 @import "pointers/brushPointer.scss";
+@import "brushPanel.scss";
 $topPanelBg: gray;
 $bottomPanelBg: gray;
-$leftPanelBg: black;
+$leftPanelBg: darkred;
 $rightPanelBg: gray;
 .canvas-block {
     width: 100vw;
@@ -10,6 +11,7 @@ $rightPanelBg: gray;
     top: 15vh;
     background-color: lightgray;
 }
+
 .canvas {
     outline: 5px solid red;
     outline-offset: -5px;
@@ -18,6 +20,7 @@ $rightPanelBg: gray;
     left: 0;
     cursor: none;
 }
+
 .top-panel {
     background-color: $topPanelBg;
     width: 100vw;
@@ -25,6 +28,29 @@ $rightPanelBg: gray;
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.top-panel__instruments {
+    position: absolute;
+    top: 0;
+    left: -100px;
+    height: 100vh;
+    width: 100px;
+    background-color: $leftPanelBg;
+    transition: left 0.5s;
+}
+
+.top-panel__instuments-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 50px;
+    width: 50px;
+    height: 50px;
+    font-size: 14px;
+    background-image: url("../img/brush-icon.svg");
+    background-position: center;
+    background-size: cover;
 }
 
 .bottom-panel {
@@ -35,22 +61,3 @@ $rightPanelBg: gray;
     bottom: 0;
     left: 0;
 }
-
-.left-panel {
-    background-color: $leftPanelBg;
-    width: 10vw;
-    height: 80vh;
-    position: absolute;
-    bottom: 10vh;
-    left: 0;
-}
-
-.right-panel {
-    background-color: $leftPanelBg;
-    width: 10vw;
-    height: 80vh;
-    position: absolute;
-    bottom: 10vh;
-    right: 0;
-}
-

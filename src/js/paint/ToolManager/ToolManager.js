@@ -1,4 +1,4 @@
-import BrushManager from "../BrushManager/BrushManager";
+import BrushManager from "./BrushManager/BrushManager";
 import ListenerManager from "../ListenerManager/ListenerManager";
 import PointerManager from "./PointerManager/PointerManager";
 

@@ -1,4 +1,4 @@
-import BrushManager from "../../BrushManager/BrushManager";
+import BrushManager from "../BrushManager/BrushManager";
 import ListenerManager from "../../ListenerManager/ListenerManager"
 
 export default class PointerManager{

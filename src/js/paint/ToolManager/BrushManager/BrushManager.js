@@ -1,4 +1,4 @@
-import PointerManager from "../ToolManager/PointerManager/PointerManager";
+import PointerManager from "../PointerManager/PointerManager";
 
 //класс определяет свойства кисти
 export default class BrushManager{
@@ -16,10 +16,10 @@ export default class BrushManager{
         return this._ctx.lineWidth;
     }
 
-    setLineCap(lineCap){
-        this._pointerManager.setLineWidth
-        this._ctx.lineCap = lineCap;
-    }
+    // setLineCap(lineCap){
+    //     this._pointerManager.setLineWidth
+    //     this._ctx.lineCap = lineCap;
+    // }
 
     getLineCap(){
         return this._ctx.lineCap;
