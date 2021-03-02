@@ -10,6 +10,13 @@ export default class PointerManager{
         this._pointerElem=document.querySelector(".brush_pointer");;
         this._listenerManager = new ListenerManager(new Array());
         this._pointerFunc=null;
+        this._x=0;
+        this._y=0;
+        this._canvas.addEventListener("mousemove", (e) => {
+            this._x=e.offsetX;
+            this._y=e.offsetY;
+
+        });
     }
     setBrushPointer(){
         let pointer = document.querySelector(".brush_pointer");
@@ -41,5 +48,7 @@ export default class PointerManager{
     updateWidth(width){
         this._pointerElem.style.width = width+"px";
         this._pointerElem.style.height = width+"px";
+        this._pointerElem.style.top = this._y - parseInt(getComputedStyle(this._pointerElem).width)/2 + "px";
+        this._pointerElem.style.left = this._x - parseInt(getComputedStyle(this._pointerElem).height)/2 + "px";
     }
 }

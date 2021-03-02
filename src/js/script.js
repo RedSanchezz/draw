@@ -1,10 +1,10 @@
 
-import Interface from './interface/interface';
+import InterfaceManager from './Interface/InterfaceManager';
 import Paint from './paint/Paint';
-import {} from "./topPanelInterface";
 
 let paint = new Paint();
-let interfaceManager= new Interface();
+let interfaceManager= new InterfaceManager();
+interfaceManager.defaultSetting();
 let brushManager= paint.getToolManager().getBrushManager();
 
 interfaceManager.setBrushPanel(brushManager);

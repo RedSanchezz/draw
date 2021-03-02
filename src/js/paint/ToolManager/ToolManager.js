@@ -1,6 +1,5 @@
 import BrushManager from "./BrushManager/BrushManager";
 import ListenerManager from "../ListenerManager/ListenerManager";
-import PointerManager from "./PointerManager/PointerManager";
 
 
 //класс для выбора инструмента рисования
