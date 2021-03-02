@@ -39,4 +39,10 @@ export default class BrushManager{
     removePointer(){
         this._pointerManager.removePointer();
     }
+    setGlobalAlpha(alpha){
+        this._ctx.globalAlpha = alpha;
+    }
+    getGlobalAlpha(){
+        return this._ctx.globalAlpha;
+    }
 }

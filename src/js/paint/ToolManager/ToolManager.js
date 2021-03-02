@@ -25,6 +25,7 @@ export default class ToolManager{
         let end=false;
         this._brushManager.setPointer(1);
 
+        this._brushManager.lineJoin = "bevel";
 
         
         this._listenerManager.addListener(this._canvas, "mousedown", (e)=>{
@@ -40,6 +41,7 @@ export default class ToolManager{
                 drawLine(this._ctx, x, y, e.offsetX , e.offsetY);
                 x=e.offsetX;
                 y=e.offsetY;
+                
             });
         });
 

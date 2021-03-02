@@ -3,27 +3,37 @@ import ListenerManager from "../paint/ListenerManager/ListenerManager";
 export default class InterfaceManager{
     
     constructor(){
+        this._listenerManager= new ListenerManager(new Array());
+
     }
 
     setBrushPanel(brushManager){
+
         let brushColorInp = document.getElementById("brush-color-inp");
-        let listenerManager= new ListenerManager(new Array());
         brushManager.setColor(brushColorInp.value);
         brushManager.setLineWidth(100);
-
-        listenerManager.addListener(brushColorInp, 'input',  (e) => {
+        this._listenerManager.addListener(brushColorInp, 'input',  (e) => {
             brushManager.setColor(brushColorInp.value);
         });
-
         //input brush size
         let brushSizeInp = document.getElementById("brush-size-inp");
         brushSizeInp.value=brushManager.getLineWidth();
-
         //изменение инпута
         brushSizeInp.addEventListener("input", function(){
             brushManager.setLineWidth(brushSizeInp.value);
         });
 
+        //прозрачность кисти
+        let brushAlphaInp = document.getElementById("brush-alpha-inp");
+        brushAlphaInp.value = brushManager.getGlobalAlpha();
+        this._listenerManager.addListener(brushAlphaInp, "input", (e) => {
+            brushManager.setGlobalAlpha(brushAlphaInp.value.replace(/,/, "."));
+            
+        });
+
+
+
+        //нажимание клавиш
         let register = [];
         window.addEventListener("keyup", (e) => {
             if(register.includes(e.code)) {
@@ -38,12 +48,16 @@ export default class InterfaceManager{
         //passive нужно что бы работало в хроме
         window.addEventListener("mousewheel", function(e){
             if(register.includes("ControlLeft")) {
-                brushSizeInp.value=brushSizeInp.value-e.wheelDeltaY*0.1;
+                brushSizeInp.value=brushSizeInp.value-(e.wheelDeltaY>0 ? 20 : -20);
+                if(brushSizeInp.value<0) brushSizeInp.value=0;
+
+
                 brushManager.setLineWidth(brushSizeInp.value);
                 e.preventDefault();
                 return false;
             }
         },{ passive: false });
+
     }
 
     defaultSetting(){
@@ -71,5 +85,10 @@ export default class InterfaceManager{
                 }
             }, 1000);
         });
+
+        window.addEventListener("resize", function(){
+            e.preventDefault();
+            return false;
+        }, {passive: false});
     }
 }

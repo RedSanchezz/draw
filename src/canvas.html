@@ -22,16 +22,22 @@
                 test
             </div>
 
-
-
             <section class="brush-panel">
                 <div class="brush-panel__item color-block">
-                    <div class="brush__color">
-                        <input type="color" id="brush-color-inp">
-                    </div>
+                    <input type="color" id="brush-color-inp">
                 </div>
-                <div class="brush-panel__item">
+                <div class="brush-panel__item brush-size">
+                    <div class="brush-size__text">Brush size</div>
                     <input type="number" id="brush-size-inp" min="1" max="300">
+                    <input type="number" id="brush-alpha-inp" min="0" max="1" step="0.1">
+                </div>
+                <div class="brush-panel__item brush-setting">
+                    <div class="brush-size__text">Brush Form</div>
+                    <select name="blacklist">
+                        <option value = "2PAC">Tupac Amaru</option>
+                        <option value = "50cent">Curtis Jackson</option>
+                        <option value = "Snoop Dogg" selected>Calvin Cordozar</option>
+                    </select>
                 </div>
                 <div class="brush-panel__item">
                     <button id="test-btn">test button</button>
