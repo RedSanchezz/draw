@@ -7,28 +7,26 @@ export default class InterfaceManager{
 
     }
 
-    setBrushPanel(brushManager){
-
+    setBrushPanel(brush){
+        //brush color
         let brushColorInp = document.getElementById("brush-color-inp");
-        brushManager.setColor(brushColorInp.value);
-        brushManager.setLineWidth(10);
+        brushColorInp.value=brush.getColor();
         this._listenerManager.addListener(brushColorInp, 'input',  (e) => {
-            brushManager.setColor(brushColorInp.value);
+            brush.setColor(brushColorInp.value);
         });
-        //input brush size
+
+        // brush size
         let brushSizeInp = document.getElementById("brush-size-inp");
-        brushSizeInp.value=brushManager.getLineWidth();
-        //изменение инпута
+        brushSizeInp.value=brush.getLineWidth();
         brushSizeInp.addEventListener("input", function(){
-            brushManager.setLineWidth(brushSizeInp.value);
+            brush.setLineWidth(brushSizeInp.value);
         });
 
         //прозрачность кисти
         let brushAlphaInp = document.getElementById("brush-alpha-inp");
-        brushAlphaInp.value = brushManager.getGlobalAlpha();
+        brushAlphaInp.value = brush.getAlpha();
         this._listenerManager.addListener(brushAlphaInp, "input", (e) => {
-            brushManager.setGlobalAlpha(brushAlphaInp.value.replace(/,/, "."));
-            
+            brush.setAlpha(brushAlphaInp.value.replace(/,/, "."));
         });
 
 
@@ -52,14 +50,15 @@ export default class InterfaceManager{
                 if(brushSizeInp.value<0) brushSizeInp.value=0;
 
 
-                brushManager.setLineWidth(brushSizeInp.value);
+                brush.setLineWidth(brushSizeInp.value);
                 e.preventDefault();
                 return false;
             }
         },{ passive: false });
-
     }
 
+
+    //настройки не зависящие от canvas
     defaultSetting(){
         let instrumentBtn = document.getElementById("open-instruments-btn");
         let instrumentsPanel = document.querySelector(".top-panel__instruments");
@@ -86,7 +85,7 @@ export default class InterfaceManager{
             }, 1000);
         });
 
-        window.addEventListener("resize", function(){
+        window.addEventListener("resize", function(e){
             e.preventDefault();
             return false;
         }, {passive: false});

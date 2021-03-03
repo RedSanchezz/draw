@@ -8,9 +8,7 @@ export default class SketchBrush extends Brush{
     create(){
         let ctx = this._ctx;
         let end=false;
-        this._brushManager.setPointer(1);
 
-        this._brushManager.lineJoin = "bevel";
         this._listenerManager.addListener(this._canvas, "mousedown", (e)=>{
             ctx.beginPath();
             ctx.moveTo(e.offsetX, e.offsetY);
@@ -41,5 +39,7 @@ export default class SketchBrush extends Brush{
                 end=true;
             }
         });
+    }
+    addPointer(){
     }
 }

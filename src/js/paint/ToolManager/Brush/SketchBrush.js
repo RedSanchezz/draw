@@ -7,20 +7,19 @@ export default class SketchBrush extends Brush{
     }
     create(){
         var ppts = [];
-
         const tmp_canvas = document.createElement("canvas");
+        tmp_canvas.style.zIndex=100;
         tmp_canvas.height= this._canvas.height;
         tmp_canvas.width = this._canvas.width;
-        this._canvasBlock.append(tmp_canvas);
-
         const tmp_ctx=tmp_canvas.getContext("2d");
-
         this._canvas.addEventListener('mousedown', (e) =>{
             console.log("down");
             tmp_ctx.strokeStyle = this._ctx.strokeStyle;
             tmp_ctx.lineWidth = this._ctx.lineWidth;
-            tmp_ctx.globalAlpha = this._ctx.globalAlpha;
+            tmp_ctx.lineCap  = this._ctx.lineCap;
             this._canvas.addEventListener("mousemove", onPaint);
+            //test
+            this._canvasBlock.prepend(tmp_canvas);
         });
         
         this._canvas.addEventListener('mouseup', ()=> {
@@ -29,9 +28,8 @@ export default class SketchBrush extends Brush{
             tmp_ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
             console.log("up");
             ppts=[];
+            tmp_canvas.remove();
         });
-
-
         var onPaint = (e)=> {
             let x= e.offsetX;
             let y = e.offsetY;
@@ -41,10 +39,7 @@ export default class SketchBrush extends Brush{
             tmp_ctx.beginPath();
             // tmp_ctx.moveTo(ppts[0].x, ppts[0].y);
 
-            
-            console.log("move");
             tmp_ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
-            console.log("clear");
 
             if(ppts.length<3){
                 tmp_ctx.arc(ppts[0].x, ppts[0].y, 1, 0, 2*Math.PI);
@@ -61,5 +56,9 @@ export default class SketchBrush extends Brush{
             tmp_ctx.stroke();
         };
     }
+    destroy(){
+
+    }
+    
 
 }

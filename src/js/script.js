@@ -4,7 +4,8 @@ import Paint from './paint/Paint';
 
 let paint = new Paint();
 let interfaceManager= new InterfaceManager();
-interfaceManager.defaultSetting();
-let brushManager= paint.getToolManager().getBrushManager();
 
-interfaceManager.setBrushPanel(brushManager);
+interfaceManager.defaultSetting();
+let toolManager= paint.getToolManager();
+
+interfaceManager.setBrushPanel(toolManager.getBrush());
