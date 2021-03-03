@@ -11,24 +11,24 @@ export default class SketchBrush extends Brush{
         tmp_canvas.style.zIndex=100;
         tmp_canvas.height= this._canvas.height;
         tmp_canvas.width = this._canvas.width;
+        tmp_canvas.classList.add("canvas");
         const tmp_ctx=tmp_canvas.getContext("2d");
-        this._canvas.addEventListener('mousedown', (e) =>{
+        this._canvasBlock.prepend(tmp_canvas);
+        tmp_canvas.addEventListener('mousedown', (e) =>{
             console.log("down");
             tmp_ctx.strokeStyle = this._ctx.strokeStyle;
             tmp_ctx.lineWidth = this._ctx.lineWidth;
             tmp_ctx.lineCap  = this._ctx.lineCap;
-            this._canvas.addEventListener("mousemove", onPaint);
+            tmp_canvas.addEventListener("mousemove", onPaint);
             //test
-            this._canvasBlock.prepend(tmp_canvas);
         });
         
-        this._canvas.addEventListener('mouseup', ()=> {
-            this._canvas.removeEventListener('mousemove', onPaint);
+        tmp_canvas.addEventListener('mouseup', ()=> {
+            tmp_canvas.removeEventListener('mousemove', onPaint);
             this._ctx.drawImage(tmp_canvas, 0, 0);
-            tmp_ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+            tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             console.log("up");
             ppts=[];
-            tmp_canvas.remove();
         });
         var onPaint = (e)=> {
             let x= e.offsetX;

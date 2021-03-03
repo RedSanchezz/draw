@@ -15,7 +15,6 @@ export default class ColorHelper{
         let b = parseInt(hex.slice(4), 16);
         return "rgba("+r+","+g+","+b+","+alpha+")";
     }
-
     static rgbToHex(rgb){
         rgb=rgb.replace(/[\s()rgba;]/gi, "").split(",").map((value, index, array) => {
             value=parseInt(value, 10).toString(16);
@@ -25,8 +24,21 @@ export default class ColorHelper{
         return "#"+rgb;
     }
 
-    //rgb(255, 255, 255);
-    //rgba(255, 255, 255, 0.9999);
+    static toRgba(str, alpha){
+        if(str.startsWith("rgba")) {
+            let hex = ColorHelper.rgbaToHex(str);
+            console.log(hex);
+            return ColorHelper.hexToRgba(hex, alpha);
+            
+        }
+        if(str.startsWith("rgb")) {
+            let hex=ColorHelper.rgbToHex(str);
+            return this.hexToRgba(hex, alpha);
+        }
+        return this.hexToRgba(str, alpha);
+
+    }
+
 
     static rgbaToHex(rgba){
         rgba=rgba.replace(/[\s()rgba;]/gi, "");
@@ -40,6 +52,8 @@ export default class ColorHelper{
     }
 
     static toHex(str){
-        if(str.startsWith("rgba")) ColorHelper.rgbaToHex();
+        if(str.startsWith("#")) return str;
+        if(str.startsWith("rgba")) return ColorHelper.rgbaToHex(str);
+        return ColorHelper.rgbToHex(str);
     }
 }
