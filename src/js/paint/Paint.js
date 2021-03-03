@@ -7,9 +7,8 @@ export default class Paint{
         this._ctx = this._canvas.getContext("2d");
         defaultSetting(this._canvas, this._ctx);
         this._toolManager = new ToolManager(this._canvas, this._ctx);
-        this._toolManager.setBrush();
+        this._toolManager.setBrush2();
     }
-
     getContext(){
         return this._context;
     }
@@ -20,5 +19,4 @@ export default class Paint{
         return this._toolManager;
     }
     //настройки кисти
-
 }

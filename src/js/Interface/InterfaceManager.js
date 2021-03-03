@@ -11,7 +11,7 @@ export default class InterfaceManager{
 
         let brushColorInp = document.getElementById("brush-color-inp");
         brushManager.setColor(brushColorInp.value);
-        brushManager.setLineWidth(100);
+        brushManager.setLineWidth(10);
         this._listenerManager.addListener(brushColorInp, 'input',  (e) => {
             brushManager.setColor(brushColorInp.value);
         });
