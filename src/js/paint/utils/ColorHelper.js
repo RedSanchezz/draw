@@ -27,7 +27,6 @@ export default class ColorHelper{
     static toRgba(str, alpha){
         if(str.startsWith("rgba")) {
             let hex = ColorHelper.rgbaToHex(str);
-            console.log(hex);
             return ColorHelper.hexToRgba(hex, alpha);
             
         }
@@ -36,9 +35,7 @@ export default class ColorHelper{
             return this.hexToRgba(hex, alpha);
         }
         return this.hexToRgba(str, alpha);
-
     }
-
 
     static rgbaToHex(rgba){
         rgba=rgba.replace(/[\s()rgba;]/gi, "");

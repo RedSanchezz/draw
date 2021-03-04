@@ -1,0 +1,47 @@
+.instruments-panel {
+    padding-top: 15vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.instruments-panel__item {
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+
+.istrument-brush__item {
+    width: 50px;
+    height: 50px;
+    font-size: 14px;
+    background-image: url("../img/brush-icon.svg");
+    background-position: center;
+    background-size: cover;
+    &:hover {
+        background-color: red;
+        position: relative;
+        .instruments-panel__brush-panel {
+            display: block;
+            padding: 20px;
+            cursor: pointer;
+        }
+    }
+}
+
+.instruments-panel__brush-panel {
+    left: 50px;
+    position: absolute;
+    background-color: red;
+    width: 200px;
+    height: 200px;
+    display: none;
+}
+
+.instruments-panel__brush-item {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+}

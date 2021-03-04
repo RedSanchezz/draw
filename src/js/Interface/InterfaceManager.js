@@ -2,34 +2,37 @@ import ListenerManager from "../paint/ListenerManager/ListenerManager";
 
 export default class InterfaceManager{
     
-    constructor(){
+    constructor(toolManager){
         this._listenerManager= new ListenerManager(new Array());
-
+        this._toolManager = toolManager;
     }
-
     setBrushPanel(brush){
+        this._toolManager.getBrush();
+        let testBtn = document.getElementById("test-btn");
+        testBtn.addEventListener("click", function(){
+            brush.destroy();
+        });
+
         //brush color
         let brushColorInp = document.getElementById("brush-color-inp");
         brushColorInp.value=brush.getColor();
         this._listenerManager.addListener(brushColorInp, 'input',  (e) => {
             brush.setColor(brushColorInp.value);
         });
-
         // brush size
         let brushSizeInp = document.getElementById("brush-size-inp");
         brushSizeInp.value=brush.getLineWidth();
         brushSizeInp.addEventListener("input", function(){
             brush.setLineWidth(brushSizeInp.value);
         });
-
         //прозрачность кисти
         let brushAlphaInp = document.getElementById("brush-alpha-inp");
         brushAlphaInp.value = brush.getAlpha();
         this._listenerManager.addListener(brushAlphaInp, "input", (e) => {
+            console.log(brushAlphaInp.value);
+            console.log("INPUT");
             brush.setAlpha(brushAlphaInp.value.replace(/,/, "."));
         });
-
-
 
         //нажимание клавиш
         let register = [];
@@ -56,7 +59,6 @@ export default class InterfaceManager{
             }
         },{ passive: false });
     }
-
 
     //настройки не зависящие от canvas
     defaultSetting(){
@@ -89,5 +91,13 @@ export default class InterfaceManager{
             e.preventDefault();
             return false;
         }, {passive: false});
+
+
+
+        //brush
+        let brush = document.getElementById("sketch-brush");
+        brush.addEventListener("click", (e)=>{
+            this._toolManager.setTool("scetchBrush");
+        });
     }
 }

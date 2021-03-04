@@ -1,0 +1,4 @@
+1) sketch brush при смещении ровно на 1 пиксель пропадает
+2) Класс brush Должен наследоваться от класса Tool. Или SketchBrush должен наследоваться от Tool
+3) Добавить событие mouseleave для SketchBrush
+4) Пофиксить хардкод в interfaceManager

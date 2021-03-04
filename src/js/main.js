@@ -3,9 +3,11 @@ import InterfaceManager from './Interface/InterfaceManager';
 import Paint from './paint/Paint';
 
 let paint = new Paint();
-let interfaceManager= new InterfaceManager();
+let toolManager= paint.getToolManager();
+let interfaceManager= new InterfaceManager(toolManager);
+
 
 interfaceManager.defaultSetting();
-let toolManager= paint.getToolManager();
+
 
 interfaceManager.setBrushPanel(toolManager.getBrush());

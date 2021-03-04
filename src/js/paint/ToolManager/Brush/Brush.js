@@ -16,22 +16,19 @@ export default class Brush {
     }
     setColor(color){
         if(this._alpha) color=ColorHelper.toRgba(color, this._alpha);
+        console.log("rgba:  "+color);
         this._ctx.fillStyle=color;
         this._ctx.strokeStyle=color;
     }
     getColor(){
-        ColorHelper.toHex(this._ctx.strokeStyle);
         return this._ctx.strokeStyle;
     }
     setAlpha(alpha){
-        console.log(alpha);
-        let rgba= ColorHelper.toRgba(this.getColor(),alpha);
-        console.log(rgba);
-        this.setColor(rgba);
+        console.log("alpha:"+alpha);
         this._alpha=alpha;
+        this.setColor(this.getColor());
     }
     getAlpha(){
-        console.log(this._alpha);
         return this._alpha;
     }
     setLineWidth(width){

@@ -12,12 +12,12 @@ export default class ToolManager{
         this._currentBrush = null;
     }
     setTool(tool){
+        if(this._currentBrush) this._currentBrush.destroy();
         switch(tool){
             case "scetchBrush":{ 
                 let brush = new SketchBrush(this._canvas, this._ctx);
                 brush.create();
                 this._currentBrush=brush;
-                console.log(brush.getColor());
                 break;
             }
             default: {

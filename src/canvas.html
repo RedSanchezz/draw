@@ -18,10 +18,15 @@
         </div>
         <div class="top-panel">
             <button id="open-instruments-btn" class="top-panel__instuments-btn"></button>
-            <div class="top-panel__instruments">
-                test
+            <div class="top-panel__instruments instruments-panel">
+                <div class="instruments-panel__item istrument-brush__item">
+                    <div class="instruments-panel__brush-panel">
+                        <div class="instruments-panel__brush-item sketch-brush" id="sketch-brush"></div>
+                    </div>
+                </div>
+                <div class="instruments-panel__item">test</div>
+                <div class="instruments-panel__item">test</div>
             </div>
-
             <section class="brush-panel">
                 <div class="brush-panel__item color-block">
                     <input type="color" id="brush-color-inp">
@@ -29,7 +34,7 @@
                 <div class="brush-panel__item brush-size">
                     <div class="brush-size__text">Brush size</div>
                     <input type="number" id="brush-size-inp" min="1" max="300">
-                    <input type="number" id="brush-alpha-inp" min="0" max="1" step="0.1">
+                    <input type="number" id="brush-alpha-inp" min="0.1" max="1" step="0.1">
                 </div>
                 <div class="brush-panel__item brush-setting">
                     <div class="brush-size__text">Brush Form</div>
@@ -40,7 +45,7 @@
                     </select>
                 </div>
                 <div class="brush-panel__item">
-                    <button id="test-btn">test button</button>
+                    <button id="test-btn">Remove Bruhs</button>
                 </div>
             </section>
         </div>

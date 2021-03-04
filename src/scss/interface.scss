@@ -1,5 +1,6 @@
 @import "pointers/brushPointer.scss";
 @import "brushPanel.scss";
+@import "instruments-panel.scss";
 $topPanelBg: gray;
 $bottomPanelBg: gray;
 $leftPanelBg: darkred;
@@ -39,6 +40,7 @@ $rightPanelBg: gray;
     width: 100px;
     background-color: $leftPanelBg;
     transition: left 0.5s;
+    z-index: 999;
 }
 
 .top-panel__instuments-btn {
