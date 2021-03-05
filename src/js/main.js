@@ -9,5 +9,4 @@ let interfaceManager= new InterfaceManager(toolManager);
 
 interfaceManager.defaultSetting();
 
-
 interfaceManager.setBrushPanel(toolManager.getBrush());

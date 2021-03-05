@@ -1,6 +1,7 @@
 
 import SketchBrush from "./Brush/SketchBrush";
 import LineBrush from "./Brush/LineBrush";
+import TestBrush from "./Brush/TestBrush";
 
 
 //класс для выбора инструмента рисования
@@ -16,6 +17,12 @@ export default class ToolManager{
         switch(tool){
             case "scetchBrush":{ 
                 let brush = new SketchBrush(this._canvas, this._ctx);
+                brush.create();
+                this._currentBrush=brush;
+                break;
+            }
+            case "test":{
+                let brush = new TestBrush(this._canvas, this._ctx);
                 brush.create();
                 this._currentBrush=brush;
                 break;

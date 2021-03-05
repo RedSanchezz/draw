@@ -1,7 +1,7 @@
 import Brush from "./Brush";
 
 
-export default class SketchBrush extends Brush{
+export default class TestBrush extends Brush{
     constructor(canvas, ctx){
         super(canvas, ctx);
     }
@@ -30,8 +30,11 @@ export default class SketchBrush extends Brush{
         this._listenerManager.addListener(tmp_canvas, "mouseup", ()=> {
             this._listenerManager.removeListener(tmp_canvas, "mousemove",onPaint);
             // tmp_ctx.globalAlpha=this.getAlpha();
-            console.log(tmp_ctx.globalAlpha);
+            let imageData=testFunc(tmp_ctx.getImageData(0, 0, tmp_canvas.width, tmp_canvas.height), this._ctx.getImageData(0, 0, tmp_canvas.width, tmp_canvas.height, tmp_canvas.width));
+            
+            tmp_ctx.putImageData(imageData, 0, 0);
 
+            this._ctx.lineWidt=0;
             this._ctx.drawImage(tmp_canvas, 0, 0);
             
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
@@ -41,17 +44,17 @@ export default class SketchBrush extends Brush{
         var onPaint = (e)=> {
             let x= e.offsetX;
             let y = e.offsetY;
-            ppts.push({x, y});
-        
 
+            ppts.push({x, y});
+            
             tmp_ctx.beginPath();
             // tmp_ctx.moveTo(ppts[0].x, ppts[0].y);
-            tmp_ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
-            console.log(ppts.length);
 
-            if(ppts.length<=3){
+
+            tmp_ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+            if(ppts.length<=2){
                 tmp_ctx.arc(ppts[0].x, ppts[0].y, 0, 0, 2*Math.PI);
-                // return;
+                return;
             }
             for (var i = 1; i < ppts.length - 2; i++) {
                 var c = (ppts[i].x + ppts[i + 1].x) / 2;
@@ -70,4 +73,20 @@ export default class SketchBrush extends Brush{
     }
     
 
+}
+function testFunc(array, array2){
+    console.log(array.data);
+    for(let i=0;i<array.data.length; i=i+4){
+        if(array.data[i+3]<=array2.data[i+3]){
+            array.data[i+3]=0;
+        }
+    }
+    console.log(array.data);
+
+    for(let i=0;i<array.data.length; i=i+4){
+        if(array.data[i+3]<=array2.data[i+3]){
+            array.data[i+3]=0;
+        }
+    }
+    return array;
 }
