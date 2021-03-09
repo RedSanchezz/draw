@@ -1,20 +1,23 @@
 import ListenerManager from "../../ListenerManager/ListenerManager";
 import ColorHelper from "../../utils/ColorHelper";
+import Tool from "../Tool";
 
-export default class Brush {
+//Базовый класс для кисти
+export default class Brush extends Tool {
     constructor(canvas, ctx){
-        this._canvas = canvas;
-        this._ctx = ctx;
+
+        super(canvas, ctx);
         this._canvasBlock = document.querySelector(".canvas-block");
         this._listenerManager= new ListenerManager(new Array());
         this._alpha=1;
-    }
-    //устанавливает кисти прозрачность
 
+    }
+    //устанавливаем стиль концов нарисованной линии
     getLineCap(){
         return this._ctx.lineCap;
     }
     setColor(color){
+        console.log(color);
         if(this._alpha) color=ColorHelper.toRgba(color, this._alpha);
         console.log("rgba:  "+color);
         this._ctx.fillStyle=color;
@@ -23,6 +26,7 @@ export default class Brush {
     getColor(){
         return this._ctx.strokeStyle;
     }
+    //Задаем прозрачность кисти
     setAlpha(alpha){
         console.log("alpha:"+alpha);
         this._alpha=alpha;
@@ -31,6 +35,7 @@ export default class Brush {
     getAlpha(){
         return this._alpha;
     }
+    //ширина линии
     setLineWidth(width){
         this._ctx.lineWidth=width;
     }

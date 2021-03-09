@@ -59,7 +59,7 @@ export default class InterfaceManager{
             }
         },{ passive: false });
     }
-
+    // eraser1
     //настройки не зависящие от canvas
     defaultSetting(){
         let instrumentBtn = document.getElementById("open-instruments-btn");
@@ -95,9 +95,19 @@ export default class InterfaceManager{
 
 
         //brush
-        let brush = document.getElementById("sketch-brush");
-        brush.addEventListener("click", (e)=>{
+        let brushBtn = document.getElementById("sketch-brush");
+        brushBtn.addEventListener("click", (e)=>{
             this._toolManager.setTool("scetchBrush");
+        });
+
+        let eraserBtn = document.getElementById("eraser1");
+        eraserBtn.addEventListener("click", (e)=>{
+            this._toolManager.setTool("eraser");
+        });
+
+        let brushNoOverlay = document.getElementById("brush-without-overlay");
+        brushNoOverlay.addEventListener("click", (e) => {
+            this._toolManager.setTool("brushWithoutOverlay");
         });
     }
 }

@@ -7,9 +7,12 @@
 }
 
 .instruments-panel__item {
+    margin-top: 10px;
     position: relative;
     width: 50px;
     height: 50px;
+    background-color: black;
+    cursor: pointer;
 }
 
 .istrument-brush__item {
@@ -25,7 +28,6 @@
         .instruments-panel__brush-panel {
             display: block;
             padding: 20px;
-            cursor: pointer;
         }
     }
 }
@@ -40,8 +42,19 @@
 }
 
 .instruments-panel__brush-item {
+    margin-top: 10px;
     display: block;
     width: 50px;
     height: 50px;
     background-color: black;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.instruments-panel__eraser {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color: whitesmoke;
+    cursor: pointer;
 }

@@ -1,7 +1,6 @@
-import Brush from "./Brush";
+import Brush from "../Brush/Brush";
 
-
-export default class TestBrush extends Brush{
+export default class Eraser extends Brush{
     constructor(canvas, ctx){
         super(canvas, ctx);
     }
@@ -19,7 +18,8 @@ export default class TestBrush extends Brush{
         this._canvasBlock.prepend(tmp_canvas);
 
         this._listenerManager.addListener(tmp_canvas, "mousedown",(e) =>{
-            tmp_ctx.strokeStyle = this._ctx.strokeStyle;
+            tmp_ctx.strokeStyle = "lightgray";
+            console.log("white");
             tmp_ctx.lineWidth = this._ctx.lineWidth;
             tmp_ctx.lineCap  = this._ctx.lineCap;
             onPaint(e);
@@ -35,7 +35,7 @@ export default class TestBrush extends Brush{
             tmp_ctx.putImageData(imageData, 0, 0);
 
             this._ctx.lineWidt=0;
-            this._ctx.drawImage(tmp_canvas, 0, 0);
+            this._ctx.putImageData(imageData, 0, 0);
             
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
@@ -44,17 +44,14 @@ export default class TestBrush extends Brush{
         var onPaint = (e)=> {
             let x= e.offsetX;
             let y = e.offsetY;
-
             ppts.push({x, y});
-            
+
             tmp_ctx.beginPath();
             // tmp_ctx.moveTo(ppts[0].x, ppts[0].y);
-
-
             tmp_ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
-            if(ppts.length<=2){
+
+            if(ppts.length<=3){
                 tmp_ctx.arc(ppts[0].x, ppts[0].y, 0, 0, 2*Math.PI);
-                return;
             }
             for (var i = 1; i < ppts.length - 2; i++) {
                 var c = (ppts[i].x + ppts[i + 1].x) / 2;
@@ -71,22 +68,15 @@ export default class TestBrush extends Brush{
         this._listenerManager.removeAllListener();
         this._fakeCanvas.remove();
     }
-    
-
 }
+
 function testFunc(array, array2){
     console.log(array.data);
     for(let i=0;i<array.data.length; i=i+4){
-        if(array.data[i+3]<=array2.data[i+3]){
-            array.data[i+3]=0;
+        if(array.data[i+3]==255){
+            array2.data[i+3]=0;
         }
     }
-    console.log(array.data);
-
-    for(let i=0;i<array.data.length; i=i+4){
-        if(array.data[i+3]<=array2.data[i+3]){
-            array.data[i+3]=0;
-        }
-    }
-    return array;
+    console.log(array2.data);
+    return array2;
 }
