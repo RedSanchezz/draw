@@ -11,7 +11,6 @@ export default class Paint{
         this._settingsManager.defaultSetting();
 
         this._toolManager.setTool("sketchBrush");
-
     }
     getContext(){
         return this._context;
