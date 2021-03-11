@@ -15,7 +15,6 @@ export default class SettingsManager{
 
         this._canvas.setAttribute("height", style.height);
         this._canvas.setAttribute("width", style.width);
-
         this._ctx.fillStyle="red";
         this._ctx.strokeStyle = "red";
         this._ctx.lineWidth = "40";
@@ -23,15 +22,20 @@ export default class SettingsManager{
         this._ctx.lineJoin = "round"; // как будут сходитться линии
     }
     async saveCanvas(){
+        let style =getComputedStyle(this._canvas);
+
         await this._dbHelper.open("canvasDB", 2);
         await this._dbHelper.save("canvasDB", {
             id: "imageData",
-            imageData: this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height)
+            imageData: this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height),
+            height: parseInt(style.height),
+            width: parseInt(style.width)
         });
     }
     async loadCanvas(){
         await this._dbHelper.open("canvasDB", 2);
         let imageData= await this._dbHelper.getByKey("imageData", "canvasDB");
+        console.log(imageData.height);
         if(imageData){
             this._ctx.putImageData(imageData.imageData, 0, 0);
         }

@@ -40,7 +40,6 @@ export default class BrushWithoutOverlay extends Brush{
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
             this._settingManager.saveCanvas();
-
         });
 
         var onPaint = (e)=> {
@@ -48,7 +47,7 @@ export default class BrushWithoutOverlay extends Brush{
             let y = e.offsetY;
 
             ppts.push({x, y});
-            
+
             tmp_ctx.beginPath();
             // tmp_ctx.moveTo(ppts[0].x, ppts[0].y);
 
@@ -77,14 +76,6 @@ export default class BrushWithoutOverlay extends Brush{
 
 }
 function testFunc(array, array2){
-    console.log(array.data);
-    for(let i=0;i<array.data.length; i=i+4){
-        if(array.data[i+3]<=array2.data[i+3]){
-            array.data[i+3]=0;
-        }
-    }
-    console.log(array.data);
-
     for(let i=0;i<array.data.length; i=i+4){
         if(array.data[i+3]<=array2.data[i+3]){
             array.data[i+3]=0;

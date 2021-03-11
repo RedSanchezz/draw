@@ -21,7 +21,7 @@ export default class Brush extends Tool {
     setColor(color){
         console.log(color);
         if(this._alpha) color=ColorHelper.toRgba(color, this._alpha);
-        console.log("rgba:  "+color);
+        console.log("rgba:  " + color);
         this._ctx.fillStyle=color;
         this._ctx.strokeStyle=color;
     }

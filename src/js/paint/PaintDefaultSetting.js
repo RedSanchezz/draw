@@ -20,14 +20,3 @@ function defaultBrush(ctx){
     ctx.lineCap = "round"; // определяет концы линий
     ctx.lineJoin = "round"; // как будут сходитться линии
 }
-async function setCanvas(ctx){
-    let indexedDB = new IndexedDB();
-    await indexedDB.open("canvasDB", 2);
-    let imageData= await indexedDB.getByKey("imageData", "canvasDB");
-    if(imageData){
-        ctx.putImageData(imageData.imageData, 0, 0);
-    }
-}
-async function getBrushSetting(){
-    
-}

@@ -41,6 +41,7 @@ export default class Eraser extends Brush{
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
             this._settingManager.saveCanvas();
+
         });
 
         var onPaint = (e)=> {
@@ -73,13 +74,11 @@ export default class Eraser extends Brush{
 }
 
 function testFunc(array, array2){
-    console.log(array.data);
     for(let i=0;i<array.data.length; i=i+4){
         if(array.data[i+3]==255){
             array2.data[i+3]=0;
         }
     }
-    console.log(array2.data);
     return array2;
 }
 

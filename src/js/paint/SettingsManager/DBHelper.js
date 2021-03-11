@@ -26,7 +26,7 @@ export default class IndexedDB{
             openRequest.onsuccess = ()=> {
                 this._db = openRequest.result;
                 // продолжить работу с базой данных, используя объект db
-                console.log("Все ok !");
+                console.log("Все ok ! Можно работать с БД");
                 // console.log(this._db);
                 resolve();
             };
