@@ -6,6 +6,7 @@ export default class SketchBrush extends Brush{
         super(canvas, ctx);
     }
     create(){
+
         var ppts = [];
         const tmp_canvas = document.createElement("canvas");
         this._fakeCanvas =tmp_canvas;
@@ -34,6 +35,7 @@ export default class SketchBrush extends Brush{
             
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
+            this._settingManager.saveCanvas();
         });
 
         //когда мышка уходит с холста
@@ -44,6 +46,7 @@ export default class SketchBrush extends Brush{
             
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
+            this._settingManager.saveCanvas();
         });
 
 
@@ -77,3 +80,5 @@ export default class SketchBrush extends Brush{
     
 
 }
+
+

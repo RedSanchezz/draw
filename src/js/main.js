@@ -6,7 +6,12 @@ let paint = new Paint();
 let toolManager= paint.getToolManager();
 let interfaceManager= new InterfaceManager(toolManager);
 
+let settingManager = paint.getSettingManager();
+settingManager.loadCanvas();
 
 interfaceManager.defaultSetting();
-
 interfaceManager.setBrushPanel(toolManager.getBrush());
+
+
+
+

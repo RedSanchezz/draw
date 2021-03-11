@@ -1,3 +1,4 @@
+import IndexedDB from "../../SettingsManager/DBHelper";
 import Brush from "../Brush/Brush";
 
 export default class Eraser extends Brush{
@@ -36,9 +37,10 @@ export default class Eraser extends Brush{
 
             this._ctx.lineWidt=0;
             this._ctx.putImageData(imageData, 0, 0);
-            
+            saveImageInDB(this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height));
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
+            this._settingManager.saveCanvas();
         });
 
         var onPaint = (e)=> {
@@ -79,4 +81,13 @@ function testFunc(array, array2){
     }
     console.log(array2.data);
     return array2;
+}
+
+async function saveImageInDB(imageDataForSave){
+    let indexedDB = new IndexedDB();
+    await indexedDB.open("canvasDB", 2);
+    await indexedDB.save("canvasDB", {
+        id: "imageData",
+        imageData: imageDataForSave
+    });
 }

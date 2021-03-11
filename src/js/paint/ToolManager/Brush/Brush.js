@@ -1,6 +1,7 @@
 import ListenerManager from "../../ListenerManager/ListenerManager";
-import ColorHelper from "../../utils/ColorHelper";
+import ColorHelper from "../../../utils/ColorHelper";
 import Tool from "../Tool";
+import SettingsManager from "../../SettingsManager/SettingsManager";
 
 //Базовый класс для кисти
 export default class Brush extends Tool {
@@ -10,6 +11,7 @@ export default class Brush extends Tool {
         this._canvasBlock = document.querySelector(".canvas-block");
         this._listenerManager= new ListenerManager(new Array());
         this._alpha=1;
+        this._settingManager = new SettingsManager(canvas, ctx);
 
     }
     //устанавливаем стиль концов нарисованной линии
