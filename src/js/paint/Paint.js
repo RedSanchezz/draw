@@ -1,3 +1,4 @@
+import LayoutManager from "./LayoutManager/LayoutManager";
 import SettingsManager from "./SettingsManager/SettingsManager";
 import ToolManager from "./ToolManager/ToolManager";
 
@@ -11,6 +12,7 @@ export default class Paint{
         this._settingsManager.defaultSetting();
 
         this._toolManager.setTool("sketchBrush");
+        this._layoutManager = new LayoutManager(this._canvas, this._ctx);
     }
     getContext(){
         return this._context;
@@ -26,5 +28,8 @@ export default class Paint{
     }
     getSettingManager(){
         return this._settingsManager;
+    }
+    getLayoutManager(){
+        return this._layoutManager;
     }
 }

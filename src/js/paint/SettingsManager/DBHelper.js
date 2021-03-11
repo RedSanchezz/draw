@@ -62,7 +62,6 @@ export default class IndexedDB{
             }
         });  
     }
-    
 }
 
 //БД - canvasDB
