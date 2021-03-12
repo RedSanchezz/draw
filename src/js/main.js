@@ -4,13 +4,14 @@ import Paint from './paint/Paint';
 
 let paint = new Paint();
 let toolManager= paint.getToolManager();
-let interfaceManager= new InterfaceManager(toolManager);
+let interfaceManager= new InterfaceManager(toolManager, paint);
 
 let settingManager = paint.getSettingManager();
 settingManager.loadCanvas();
 
-interfaceManager.defaultSetting();
+interfaceManager.defaultSetting(paint.getLayoutManager());
 interfaceManager.setBrushPanel(toolManager.getBrush());
+
 
 
 

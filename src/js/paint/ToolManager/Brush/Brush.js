@@ -5,14 +5,13 @@ import SettingsManager from "../../SettingsManager/SettingsManager";
 
 //Базовый класс для кисти
 export default class Brush extends Tool {
-    constructor(canvas, ctx){
-
+    constructor(canvas, ctx, paint){
         super(canvas, ctx);
         this._canvasBlock = document.querySelector(".canvas-block");
         this._listenerManager= new ListenerManager(new Array());
         this._alpha=1;
         this._settingManager = new SettingsManager(canvas, ctx);
-
+        this._layoutManager = paint.getLayoutManager();    
     }
     //устанавливаем стиль концов нарисованной линии
     getLineCap(){

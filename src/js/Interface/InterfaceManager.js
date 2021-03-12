@@ -2,9 +2,10 @@ import ListenerManager from "../paint/ListenerManager/ListenerManager";
 
 export default class InterfaceManager{
     
-    constructor(toolManager){
+    constructor(toolManager, paint){
         this._listenerManager= new ListenerManager(new Array());
         this._toolManager = toolManager;
+        this._paint=paint;
     }
     setBrushPanel(brush){
         this._toolManager.getBrush();
@@ -58,10 +59,10 @@ export default class InterfaceManager{
                 return false;
             }
         },{ passive: false });
+
     }
-    // eraser1
     //настройки не зависящие от canvas
-    defaultSetting(){
+    defaultSetting(layoutManager){
         let instrumentBtn = document.getElementById("open-instruments-btn");
         let instrumentsPanel = document.querySelector(".top-panel__instruments");
         instrumentBtn.addEventListener("mouseenter", (e) => {
@@ -93,7 +94,6 @@ export default class InterfaceManager{
         }, {passive: false});
 
 
-
         //brush
         let brushBtn = document.getElementById("sketch-brush");
         brushBtn.addEventListener("click", (e)=>{
@@ -109,5 +109,72 @@ export default class InterfaceManager{
         brushNoOverlay.addEventListener("click", (e) => {
             this._toolManager.setTool("brushWithoutOverlay");
         });
+
+        let layoutBtn = document.getElementById("open-layout-btn");
+        let layoutPanel = document.querySelector(".top-panel__layout-panel");
+        layoutBtn.addEventListener("click", (e) => {
+            this.updateLayoutPanel(layoutManager);
+            if(layoutPanel.classList.contains("open")){
+                layoutPanel.classList.remove("open");
+            }
+            else{
+                layoutPanel.classList.add("open");
+            }
+        });
+        let layoutBtnAdd = document.querySelector(".layout-panel-add");
+        layoutBtnAdd.addEventListener("click", (e) => {
+            let canvas = this._paint.getCanvas();
+            layoutManager.addLayout(this._paint.getContext().getImageData(0, 0, canvas.width, canvas.height));
+            this.updateLayoutPanel(layoutManager);
+        });
+
+        setInterval(() => {
+            this.updateLayoutPanel(layoutManager);
+        }, 1000);
+    }
+
+    updateLayoutPanel(layoutManager){
+        let layoutList =layoutManager.getLayoutList();
+        let layoutPanel = document.querySelector(".layout-panel__content");
+        
+        console.log("Обновляется !");
+
+        let layoutBlock=document.createElement("div");
+        layoutBlock.classList.add("layout-panel__content-block");
+
+        layoutPanel.innerHTML = "";
+
+        let canvas = document.createElement("canvas");
+        
+        let ctx= canvas.getContext("2d");
+        
+        for(let i=0; i< layoutList.length; i++){
+            canvas.height = layoutList[i].height;
+            canvas.width = layoutList[i].width;
+
+            
+            let layoutBlock=document.createElement("div");
+            layoutBlock.classList.add("layout-panel__content-block");
+
+
+            let img = document.createElement("img");
+            img.style.height = "100px";
+            img.style.width = "200px";
+
+            ctx.putImageData(layoutList[i], 0, 0);
+            console.log(layoutList[i]);
+
+            let src=canvas.toDataURL("image/png", 0.5);
+            img.setAttribute("src", src);
+            img.style.cursor = "pointer";
+
+            img.addEventListener("click", function(){
+                alert("clicked!");
+            });
+
+
+            layoutBlock.append(img);
+            layoutPanel.append(layoutBlock);
+        }
     }
 }

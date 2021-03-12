@@ -5,15 +5,19 @@ export default class LayoutManager{
         this._ctx = ctx;
         this._layoutList=[];
         this._layoutList.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+        this._currentLayout = 0;
     }
     addLayout(imageData){
         this._layoutList.push(imageData);
     }
     removeLayout(number){
-        
     }
     setLayout(number, imageData){
         this._layoutList[number]=imageData;
+    }
+    updateLayout(imageData){
+        console.log("update in layout manager");
+        this._layoutList[this._currentLayout]=imageData;
     }
     getLayout(number){
         return this._layoutList[number];
@@ -29,4 +33,5 @@ export default class LayoutManager{
     getLayoutList(){
         return this._layoutList;
     }
+
 }

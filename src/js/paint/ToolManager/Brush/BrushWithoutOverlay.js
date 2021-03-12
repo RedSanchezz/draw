@@ -2,8 +2,9 @@ import Brush from "./Brush";
 
 
 export default class BrushWithoutOverlay extends Brush{
-    constructor(canvas, ctx){
-        super(canvas, ctx);
+    constructor(canvas, ctx, paint){
+        super(canvas, ctx, paint);
+        
     }
     create(){
         var ppts = [];
@@ -30,7 +31,7 @@ export default class BrushWithoutOverlay extends Brush{
         this._listenerManager.addListener(tmp_canvas, "mouseup", ()=> {
             this._listenerManager.removeListener(tmp_canvas, "mousemove",onPaint);
             // tmp_ctx.globalAlpha=this.getAlpha();
-            let imageData=testFunc(tmp_ctx.getImageData(0, 0, tmp_canvas.width, tmp_canvas.height), this._ctx.getImageData(0, 0, tmp_canvas.width, tmp_canvas.height, tmp_canvas.width));
+            let imageData=testFunc(tmp_ctx.getImageData(0, 0, tmp_canvas.width, tmp_canvas.height), this._ctx.getImageData(0, 0, tmp_canvas.width, tmp_canvas.height));
             
             tmp_ctx.putImageData(imageData, 0, 0);
 
@@ -40,6 +41,7 @@ export default class BrushWithoutOverlay extends Brush{
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
             this._settingManager.saveCanvas();
+            this._layoutManager.updateLayout(this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height));
         });
 
         var onPaint = (e)=> {

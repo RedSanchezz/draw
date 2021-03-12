@@ -2,11 +2,12 @@ import Brush from "./Brush";
 
 
 export default class SketchBrush extends Brush{
-    constructor(canvas, ctx){
-        super(canvas, ctx);
+    constructor(canvas, ctx, paint){
+        super(canvas, ctx, paint);
+        console.log(this._layoutManager);
+        
     }
     create(){
-
         var ppts = [];
         const tmp_canvas = document.createElement("canvas");
         this._fakeCanvas =tmp_canvas;
@@ -36,6 +37,7 @@ export default class SketchBrush extends Brush{
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
             this._settingManager.saveCanvas();
+            this._layoutManager.updateLayout(this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height));
         });
 
         //когда мышка уходит с холста
@@ -47,6 +49,7 @@ export default class SketchBrush extends Brush{
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
             this._settingManager.saveCanvas();
+            this._layoutManager.updateLayout(this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height));
         });
 
 
