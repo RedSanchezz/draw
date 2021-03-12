@@ -12,7 +12,6 @@ export default class Brush extends Tool {
         this._alpha=1;
         this._settingManager = paint.getSettingManager();
         this._layoutManager = paint.getLayoutManager();
-        
     }
     //устанавливаем стиль концов нарисованной линии
     getLineCap(){

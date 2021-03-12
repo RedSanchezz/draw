@@ -5,8 +5,7 @@ export default class LayoutManager{
         this._ctx = ctx;
         this._layoutList=[];
         this._init();
-        this._currentLayoutIndex =0;//выбранный слой
-        this._currentLayout = this._layoutList[0];
+
         
     }
     _init(){
@@ -14,13 +13,17 @@ export default class LayoutManager{
         defCanvas.width=this._canvas.width;
         defCanvas.height=this._canvas.height;
         let defCtx = defCanvas.getContext("2d");
-        defCtx.putImageData(this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height),0,0);
+        defCtx.putImageData(this._ctx.createImageData( this._canvas.width, this._canvas.height),0,0);
+        
         let def = {
             show: true,
             canvas: defCanvas,
             ctx: defCtx
         }
         this._layoutList.push(def);
+        this._currentLayoutIndex =0;//выбранный слой
+        this._currentLayout = this._layoutList[0];
+        
     }
     //обновляем канвас, из всех слоев
     updateCurrentLayout(imageData){
@@ -56,6 +59,7 @@ export default class LayoutManager{
             let src=this._layoutList[i].canvas.toDataURL();
 
             img.setAttribute("src", src);
+            img.setAttribute("data-index", i);
             imageList.push(img);
         }
         return imageList;
@@ -70,9 +74,10 @@ export default class LayoutManager{
         this._currentLayoutIndex = number;
         let tool=toolManager.getTool();
         tool.setLayout(this._currentLayout.canvas, this._currentLayout.ctx);
+        console.log(this._currentLayout);
     }
     getCurrentLayoutIndex(){
-        return this._currentLayoutIndex;
+        return +this._currentLayoutIndex;
     }
 
 }

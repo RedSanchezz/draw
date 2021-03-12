@@ -131,7 +131,6 @@ export default class InterfaceManager{
         layoutBtnAdd.addEventListener("click", (e) => {
             layoutManager.addLayout();
             layoutManager.setCurrentLayout(layoutManager.getCurrentLayoutIndex()+1, this._paint.getToolManager());
-            console.log("Сделал активным новый слой");
         });
     }
 
@@ -146,6 +145,12 @@ export default class InterfaceManager{
             img.style.height="200px";
             img.style.width = "auto";
             img.style.maxWidth="100%";
+            img.style.cursor = "pointer";
+
+            img.addEventListener("click", () => {
+                let index=img.getAttribute("data-index");
+                layoutManager.setCurrentLayout(index, this._toolManager);
+            });
             content.append(img);
             contentPanel.append(content);
         }
