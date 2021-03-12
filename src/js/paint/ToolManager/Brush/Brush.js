@@ -6,17 +6,19 @@ import SettingsManager from "../../SettingsManager/SettingsManager";
 //Базовый класс для кисти
 export default class Brush extends Tool {
     constructor(canvas, ctx, paint){
-        super(canvas, ctx);
+        super(canvas, ctx, paint);
         this._canvasBlock = document.querySelector(".canvas-block");
         this._listenerManager= new ListenerManager(new Array());
         this._alpha=1;
-        this._settingManager = new SettingsManager(canvas, ctx);
-        this._layoutManager = paint.getLayoutManager();    
+        this._settingManager = paint.getSettingManager();
+        this._layoutManager = paint.getLayoutManager();
+        
     }
     //устанавливаем стиль концов нарисованной линии
     getLineCap(){
         return this._ctx.lineCap;
     }
+    
     setColor(color){
         console.log(color);
         if(this._alpha) color=ColorHelper.toRgba(color, this._alpha);

@@ -41,7 +41,6 @@ export default class BrushWithoutOverlay extends Brush{
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
             this._settingManager.saveCanvas();
-            this._layoutManager.updateLayout(this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height));
         });
 
         var onPaint = (e)=> {

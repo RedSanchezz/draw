@@ -3,14 +3,13 @@ import Brush from "./Brush";
 
 export default class SketchBrush extends Brush{
     constructor(canvas, ctx, paint){
-        super(canvas, ctx, paint);
-        console.log(this._layoutManager);
-        
+        super(canvas, ctx, paint);        
     }
     create(){
         var ppts = [];
         const tmp_canvas = document.createElement("canvas");
         this._fakeCanvas =tmp_canvas;
+        
         tmp_canvas.style.zIndex=100;
         tmp_canvas.height= this._canvas.height;
         tmp_canvas.width = this._canvas.width;
@@ -21,6 +20,16 @@ export default class SketchBrush extends Brush{
         this._canvasBlock.prepend(tmp_canvas);
         
         this._listenerManager.addListener(tmp_canvas, "mousedown",(e) =>{
+
+
+            let settingObj=this._settingManager.getSettingObject();
+            console.log(settingObj.lineWidth);
+            
+            this._ctx.strokeStyle = settingObj.strokeStyle;
+            this._ctx.lineWidth = settingObj.lineWidth;
+            this._ctx.lineCap = settingObj.lineCap;
+
+
             tmp_ctx.strokeStyle = this._ctx.strokeStyle;
             tmp_ctx.lineWidth = this._ctx.lineWidth;
             tmp_ctx.lineCap  = this._ctx.lineCap;
@@ -31,13 +40,15 @@ export default class SketchBrush extends Brush{
         //когда отжимаем клавишу мыши
         this._listenerManager.addListener(tmp_canvas, "mouseup", ()=> {
             this._listenerManager.removeListener(tmp_canvas, "mousemove",onPaint);
+
             // tmp_ctx.globalAlpha=this.getAlpha();
             this._ctx.drawImage(tmp_canvas, 0, 0);
-            
+
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
+
             this._settingManager.saveCanvas();
-            this._layoutManager.updateLayout(this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height));
+            this._layoutManager.update();
         });
 
         //когда мышка уходит с холста
@@ -49,7 +60,7 @@ export default class SketchBrush extends Brush{
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
             this._settingManager.saveCanvas();
-            this._layoutManager.updateLayout(this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height));
+            this._layoutManager.update();
         });
 
 
@@ -81,7 +92,6 @@ export default class SketchBrush extends Brush{
         this._fakeCanvas.remove();
     }
     
-
 }
 
 

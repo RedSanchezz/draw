@@ -28,16 +28,26 @@ export default class SettingsManager{
         await this._dbHelper.save("canvasDB", {
             id: "imageData",
             imageData: this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height),
-            height: parseInt(style.height),
-            width: parseInt(style.width)
+            height: this._canvas.height,
+            width: this._canvas.width
         });
     }
-    async loadCanvas(){
+    async loadCanvas(callback){
         await this._dbHelper.open("canvasDB", 2);
         let imageData= await this._dbHelper.getByKey("imageData", "canvasDB");
         console.log(imageData.height);
         if(imageData){
             this._ctx.putImageData(imageData.imageData, 0, 0);
+            if(callback){
+                callback();
+            }
+        }
+    }
+    getSettingObject(){
+        return {
+            strokeStyle: this._ctx.strokeStyle,
+            lineWidth: this._ctx.lineWidth,
+            lineCap : this._ctx.lineCap,
         }
     }
 }

@@ -8,7 +8,8 @@ export default class InterfaceManager{
         this._paint=paint;
     }
     setBrushPanel(brush){
-        this._toolManager.getBrush();
+        this._toolManager.getTool();
+        
         let testBtn = document.getElementById("test-btn");
         testBtn.addEventListener("click", function(){
             brush.destroy();
@@ -110,8 +111,12 @@ export default class InterfaceManager{
             this._toolManager.setTool("brushWithoutOverlay");
         });
 
+
+
+
         let layoutBtn = document.getElementById("open-layout-btn");
         let layoutPanel = document.querySelector(".top-panel__layout-panel");
+
         layoutBtn.addEventListener("click", (e) => {
             this.updateLayoutPanel(layoutManager);
             if(layoutPanel.classList.contains("open")){
@@ -121,60 +126,29 @@ export default class InterfaceManager{
                 layoutPanel.classList.add("open");
             }
         });
+
         let layoutBtnAdd = document.querySelector(".layout-panel-add");
         layoutBtnAdd.addEventListener("click", (e) => {
-            let canvas = this._paint.getCanvas();
-            layoutManager.addLayout(this._paint.getContext().getImageData(0, 0, canvas.width, canvas.height));
-            this.updateLayoutPanel(layoutManager);
+            layoutManager.addLayout();
+            layoutManager.setCurrentLayout(layoutManager.getCurrentLayoutIndex()+1, this._paint.getToolManager());
+            console.log("Сделал активным новый слой");
         });
-
-        setInterval(() => {
-            this.updateLayoutPanel(layoutManager);
-        }, 1000);
     }
 
     updateLayoutPanel(layoutManager){
-        let layoutList =layoutManager.getLayoutList();
-        let layoutPanel = document.querySelector(".layout-panel__content");
-        
-        console.log("Обновляется !");
-
-        let layoutBlock=document.createElement("div");
-        layoutBlock.classList.add("layout-panel__content-block");
-
-        layoutPanel.innerHTML = "";
-
-        let canvas = document.createElement("canvas");
-        
-        let ctx= canvas.getContext("2d");
-        
-        for(let i=0; i< layoutList.length; i++){
-            canvas.height = layoutList[i].height;
-            canvas.width = layoutList[i].width;
-
-            
-            let layoutBlock=document.createElement("div");
-            layoutBlock.classList.add("layout-panel__content-block");
-
-
-            let img = document.createElement("img");
-            img.style.height = "100px";
-            img.style.width = "200px";
-
-            ctx.putImageData(layoutList[i], 0, 0);
-            console.log(layoutList[i]);
-
-            let src=canvas.toDataURL("image/png", 0.5);
-            img.setAttribute("src", src);
-            img.style.cursor = "pointer";
-
-            img.addEventListener("click", function(){
-                alert("clicked!");
-            });
-
-
-            layoutBlock.append(img);
-            layoutPanel.append(layoutBlock);
+        let contentPanel = document.querySelector(".layout-panel__content");
+        contentPanel.innerHTML="";
+        let imgList=layoutManager.getImageList();
+        for(let i=0; i< imgList.length; i++){
+            let content =document.createElement("div");
+            content.classList.add("layout-panel__content-block");
+            let img = imgList[i];
+            img.style.height="200px";
+            img.style.width = "auto";
+            img.style.maxWidth="100%";
+            content.append(img);
+            contentPanel.append(content);
         }
+            
     }
 }

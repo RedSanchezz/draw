@@ -10,7 +10,8 @@ let settingManager = paint.getSettingManager();
 settingManager.loadCanvas();
 
 interfaceManager.defaultSetting(paint.getLayoutManager());
-interfaceManager.setBrushPanel(toolManager.getBrush());
+interfaceManager.setBrushPanel(toolManager.getTool());
+
 
 
 

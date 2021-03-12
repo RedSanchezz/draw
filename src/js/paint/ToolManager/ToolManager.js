@@ -1,7 +1,6 @@
 
 import SketchBrush from "./Brush/SketchBrush";
-import LineBrush from "./Brush/LineBrush";
-import TestBrush from "./Brush/BrushWithoutOverlay";
+
 import Eraser from "./Eraser/Eraser";
 import BrushWithoutOverlay from "./Brush/BrushWithoutOverlay";
 
@@ -12,40 +11,43 @@ export default class ToolManager{
         this._canvas = canvas;
         this._ctx = ctx;
         this._canvasBlock = document.querySelector(".canvas-block");
-        this._currentBrush = null;
+        this._currentTool = null;
         this._paint=paint;
     }
     setTool(tool){
-        if(this._currentBrush) this._currentBrush.destroy();
+        if(this._currentTool) this._currentTool.destroy();
         switch(tool){
             case "scetchBrush":{ 
-                let brush = new SketchBrush(this._canvas, this._ctx, this._paint);
+                let layoutManager = this._paint.getLayoutManager();
+                let obj = layoutManager.getCurrentLayout();
+                let brush = new SketchBrush(obj.canvas, obj.ctx, this._paint);
+
                 brush.create();
-                this._currentBrush=brush;
+                this._currentTool=brush;
                 break;
             }
             case "brushWithoutOverlay":{
                 let brush = new BrushWithoutOverlay(this._canvas, this._ctx, this._paint);
                 brush.create();
-                this._currentBrush=brush;
+                this._currentTool=brush;
                 break;
             }
             case "eraser":{
                 let brush = new Eraser(this._canvas, this._ctx, this._paint);
                 brush.create();
-                this._currentBrush=brush;
+                this._currentTool=brush;
                 break;
             }
             default: {
                 let brush = new SketchBrush(this._canvas, this._ctx, this._paint);
                 brush.create();
-                this._currentBrush=brush;
+                this._currentTool=brush;
                 break;
             }
         }
     }
-    getBrush(){
-        return this._currentBrush;
+    getTool(){
+        return this._currentTool;
     }
 }
 
