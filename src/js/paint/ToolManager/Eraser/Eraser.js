@@ -49,7 +49,7 @@ export default class Eraser extends Brush{
             ppts=[];
             this._settingManager.saveCanvas();
             this._layoutManager.update();
-
+            this._layoutManager.getCurrentLayout().saveInHistory();
         });
 
         var onPaint = (e)=> {

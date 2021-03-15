@@ -13,8 +13,9 @@ export default class InterfaceManager{
         this._toolManager.getTool();
         
         let testBtn = document.getElementById("test-btn");
-        testBtn.addEventListener("click", function(){
-            brush.destroy();
+        testBtn.addEventListener("click", ()=>{
+            let layoutManager = this._paint.getLayoutManager();
+            layoutManager.getCurrentLayout().back();
         });
 
         //brush color
@@ -43,7 +44,6 @@ export default class InterfaceManager{
         window.addEventListener("keyup", (e) => {
             if(register.includes(e.code)) {
                 register.splice(register.indexOf(e.code), 1);
-
             }
         });
         window.addEventListener("keydown", (e) => {
@@ -123,6 +123,24 @@ export default class InterfaceManager{
         layoutBtn.addEventListener("click", (e) => {
             layoutPanel.toggle();
         });
+
+        let register = [];
+        window.addEventListener("keyup", (e) => {
+            if(register.includes(e.code)) {
+                register.splice(register.indexOf(e.code), 1);
+            }
+        });
+        window.addEventListener("keydown", (e) => {
+            if(!register.includes(e.code)) register.push(e.code);
+            if(register.includes("KeyZ") && e.ctrlKey){
+                layoutManager.getCurrentLayout().back();
+                register.splice(register.indexOf("KeyZ"), 1);
+            }
+        });
+
+
+        
+
     }
 
 

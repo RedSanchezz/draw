@@ -1,3 +1,5 @@
+import Layout from "./Layout";
+
 //Класс для управления слоями
 export default class LayoutManager{
     constructor(canvas, ctx, paint){
@@ -5,6 +7,7 @@ export default class LayoutManager{
         this._ctx = ctx;
         this._layoutList=[];
         this._init();
+
         //колбэк для управления слоями из оболочки
         this._callback=null;
         this._paint= paint;
@@ -16,13 +19,10 @@ export default class LayoutManager{
         let defCtx = defCanvas.getContext("2d");
         defCtx.putImageData(this._ctx.createImageData( this._canvas.width, this._canvas.height),0,0);
         
-        let def = {
-            show: true,
-            canvas: defCanvas,
-            ctx: defCtx
-        }
-        this._layoutList.push(def);
-        this._currentLayoutIndex =0;//выбранный слой
+
+        let layout = new Layout(defCanvas, defCtx, true, this);
+        this._layoutList.push(layout);
+        this._currentLayoutIndex =0;  //выбранный слой
         this._currentLayout = this._layoutList[0];
         
     }
@@ -30,8 +30,9 @@ export default class LayoutManager{
     update(){
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
         for(let i=0; i< this._layoutList.length; i++){
-            if(this._layoutList[i].show) this._ctx.drawImage(this._layoutList[i].canvas, 0, 0);
+            if(!this._layoutList[i].isHidden()) this._ctx.drawImage(this._layoutList[i].getCanvas(), 0, 0);
         }
+
         if(this._callback) this._callback();
     }
     //Добавляем новый пустой слой
@@ -40,12 +41,9 @@ export default class LayoutManager{
         canvas.width = this._canvas.width;
         canvas.height=this._canvas.height;
         let context = canvas.getContext("2d");
-        let obj= {
-            show: true,
-            canvas: canvas,
-            ctx:context
-        }
-        this._layoutList.push(obj);
+        let layout= new Layout(canvas, context, true, this);
+
+        this._layoutList.push(layout);
 
         if(this._callback) this._callback();
     }
@@ -55,7 +53,7 @@ export default class LayoutManager{
         for(let i=0; i< this._layoutList.length; i++){
 
             let img = document.createElement("img");
-            let src=this._layoutList[i].canvas.toDataURL();
+            let src=this._layoutList[i].getCanvas().toDataURL();
 
             img.setAttribute("src", src);
             img.setAttribute("data-index", i);
@@ -73,37 +71,33 @@ export default class LayoutManager{
         this._currentLayout = this._layoutList[number];
         this._currentLayoutIndex = number;
         let tool=toolManager.getTool();
-        tool.setLayout(this._currentLayout.canvas, this._currentLayout.ctx);
+        tool.setLayout(this._currentLayout.getCanvas(), this._currentLayout.getContext());
         console.log(this._currentLayout);
 
         if(this._callback) this._callback();
     }
+
     getCurrentLayoutIndex(){
         return +this._currentLayoutIndex;
     }
+
+
     setCallback(func){
         this._callback=func;
     }
     
     toggleHide(index){
         index=+index;
-        this._layoutList.forEach((value, i, array) => {
-            if(i===index){
-                if(array[i].show==false) {
-                    array[i].show=true;
-                }
-                else {
-                    array[i].show=false;
-                }
-            }
-        });
-        console.log(this._layoutList[index].show);
+        this._layoutList[index].toggleHide();
+
         this.update();
         if(this._callback) this._callback();
     }
     deleteLayout(index){
         if(this._layoutList.length<=1){
-            alert("Нельзя удалить единственный слой !");
+            this._currentLayout.clear();
+            this.update();
+            if(this._callback) this._callback();
             return;
         }
         if(this._currentLayoutIndex>=index){
@@ -129,7 +123,7 @@ export default class LayoutManager{
 
     }
     isHidden(index){
-        return !this._layoutList[index].show;
+        return this._layoutList[index].isHidden();
     }
 }
 

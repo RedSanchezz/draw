@@ -49,6 +49,7 @@ export default class SketchBrush extends Brush{
 
             this._settingManager.saveCanvas();
             this._layoutManager.update();
+            this._layoutManager.getCurrentLayout().saveInHistory();
         });
 
         //когда мышка уходит с холста
@@ -61,6 +62,7 @@ export default class SketchBrush extends Brush{
             ppts=[];
             this._settingManager.saveCanvas();
             this._layoutManager.update();
+            this._layoutManager.getCurrentLayout().saveInHistory();
         });
 
 

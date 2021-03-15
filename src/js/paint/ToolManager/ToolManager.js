@@ -16,24 +16,24 @@ export default class ToolManager{
     }
     setTool(tool){
         let layoutManager = this._paint.getLayoutManager();
-        let obj = layoutManager.getCurrentLayout();
+        let layout = layoutManager.getCurrentLayout();
 
         if(this._currentTool) this._currentTool.destroy();
         switch(tool){
             case "scetchBrush":{ 
-                let brush = new SketchBrush(obj.canvas, obj.ctx, this._paint);
+                let brush = new SketchBrush(layout.getCanvas(), layout.getContext(), this._paint);
                 brush.create();
                 this._currentTool=brush;
                 break;
             }
             case "brushWithoutOverlay":{
-                let brush = new BrushWithoutOverlay(obj.canvas, obj.ctx, this._paint);
+                let brush = new BrushWithoutOverlay(layout.getCanvas(), layout.getContext(), this._paint);
                 brush.create();
                 this._currentTool=brush;
                 break;
             }
             case "eraser":{
-                let brush = new Eraser(obj.canvas, obj.ctx, this._paint);
+                let brush = new Eraser(layout.getCanvas(), layout.getContext(), this._paint);
                 brush.create();
                 this._currentTool=brush;
                 break;
@@ -41,7 +41,7 @@ export default class ToolManager{
             default: {
                 let layoutManager = this._paint.getLayoutManager();
                 let obj = layoutManager.getCurrentLayout();
-                let brush = new SketchBrush(obj.canvas, obj.ctx, this._paint);
+                let brush = new SketchBrush(layout.getCanvas(), layout.getContext(), this._paint);
                 brush.create();
                 this._currentTool=brush;
                 break;

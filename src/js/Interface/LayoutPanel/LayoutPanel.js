@@ -165,10 +165,7 @@ export default class LayoutPanel{
         if(layoutManager.isHidden(index)){
             showBtn.classList.add("layout__btn-hidden");
         }
-        else {
-            console.log("add class");
-            showBtn.classList.add("check");
-        }
+
         showBtn.addEventListener("click", (e) => {
             layoutManager.toggleHide(index);
         });
