@@ -19,12 +19,19 @@ export default class Eraser extends Brush{
         this._canvasBlock.prepend(tmp_canvas);
 
         this._listenerManager.addListener(tmp_canvas, "mousedown",(e) =>{
-            tmp_ctx.strokeStyle = "lightgray";
-            console.log("white");
+            let settingObj=this._settingManager.getSettingObject();
+
+            this._ctx.strokeStyle = settingObj.strokeStyle;
+            this._ctx.lineWidth = settingObj.lineWidth;
+            this._ctx.lineCap = settingObj.lineCap;
+
+            tmp_ctx.strokeStyle = this._ctx.strokeStyle;
             tmp_ctx.lineWidth = this._ctx.lineWidth;
             tmp_ctx.lineCap  = this._ctx.lineCap;
-            onPaint(e);
 
+            this._ctx.strokeStyle= "lightgray";
+            tmp_ctx.strokeStyle = "lightgray";
+            onPaint(e);
             this._listenerManager.addListener(tmp_canvas, "mousemove", onPaint);
         });
         
@@ -38,10 +45,10 @@ export default class Eraser extends Brush{
             this._ctx.lineWidt=0;
             this._ctx.putImageData(imageData, 0, 0);
 
-            saveImageInDB(this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height));
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
             this._settingManager.saveCanvas();
+            this._layoutManager.update();
 
         });
 

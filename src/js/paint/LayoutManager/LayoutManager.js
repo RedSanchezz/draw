@@ -33,6 +33,7 @@ export default class LayoutManager{
     }
     //Обновляем текущий выбраный слой. 
     update(){
+        this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
         for(let i=0; i< this._layoutList.length; i++){
             this._ctx.drawImage(this._layoutList[i].canvas, 0, 0);
         }

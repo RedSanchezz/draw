@@ -20,11 +20,18 @@ export default class BrushWithoutOverlay extends Brush{
         this._canvasBlock.prepend(tmp_canvas);
 
         this._listenerManager.addListener(tmp_canvas, "mousedown",(e) =>{
+            
+            let settingObj=this._settingManager.getSettingObject();
+
+            this._ctx.strokeStyle = settingObj.strokeStyle;
+            this._ctx.lineWidth = settingObj.lineWidth;
+            this._ctx.lineCap = settingObj.lineCap;
+
             tmp_ctx.strokeStyle = this._ctx.strokeStyle;
             tmp_ctx.lineWidth = this._ctx.lineWidth;
             tmp_ctx.lineCap  = this._ctx.lineCap;
-            onPaint(e);
 
+            onPaint(e);
             this._listenerManager.addListener(tmp_canvas, "mousemove", onPaint);
         });
         
@@ -41,6 +48,7 @@ export default class BrushWithoutOverlay extends Brush{
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
             this._settingManager.saveCanvas();
+            this._layoutManager.update();
         });
 
         var onPaint = (e)=> {
@@ -69,6 +77,7 @@ export default class BrushWithoutOverlay extends Brush{
             tmp_ctx.stroke();
         };
     }
+
     destroy(){
         this._listenerManager.removeAllListener();
         this._fakeCanvas.remove();
