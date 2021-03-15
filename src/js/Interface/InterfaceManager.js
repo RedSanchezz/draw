@@ -7,6 +7,7 @@ export default class InterfaceManager{
         this._toolManager = toolManager;
         this._paint=paint;
     }
+    //Настройки для панели управления кистью
     setBrushPanel(brush){
         this._toolManager.getTool();
         
@@ -53,8 +54,6 @@ export default class InterfaceManager{
             if(register.includes("ControlLeft")) {
                 brushSizeInp.value=brushSizeInp.value-(e.wheelDeltaY>0 ? 20 : -20);
                 if(brushSizeInp.value<0) brushSizeInp.value=0;
-
-
                 brush.setLineWidth(brushSizeInp.value);
                 e.preventDefault();
                 return false;
@@ -62,8 +61,9 @@ export default class InterfaceManager{
         },{ passive: false });
 
     }
-    //настройки не зависящие от canvas
+    //настройки не зависящие от инструмента
     defaultSetting(layoutManager){
+        //меню управления иснтрументами
         let instrumentBtn = document.getElementById("open-instruments-btn");
         let instrumentsPanel = document.querySelector(".top-panel__instruments");
         instrumentBtn.addEventListener("mouseenter", (e) => {
@@ -76,6 +76,8 @@ export default class InterfaceManager{
             let mouseEnterFunc = function(e){
                 mouseEnter = true;
             };
+
+
             //если уводим указатель мыши - закрываем менюху и удаляем слушатель
             instrumentsPanel.addEventListener("mouseleave", mouseLeaveFunc, {once: true});
         
@@ -89,6 +91,8 @@ export default class InterfaceManager{
             }, 1000);
         });
 
+
+        //Убираем масштабируемость
         window.addEventListener("resize", function(e){
             e.preventDefault();
             return false;
@@ -154,6 +158,5 @@ export default class InterfaceManager{
             content.append(img);
             contentPanel.append(content);
         }
-            
     }
 }

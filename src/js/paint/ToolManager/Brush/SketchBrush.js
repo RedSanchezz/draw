@@ -21,10 +21,9 @@ export default class SketchBrush extends Brush{
         
         this._listenerManager.addListener(tmp_canvas, "mousedown",(e) =>{
 
-
             let settingObj=this._settingManager.getSettingObject();
+
             console.log(settingObj.lineWidth);
-            
             this._ctx.strokeStyle = settingObj.strokeStyle;
             this._ctx.lineWidth = settingObj.lineWidth;
             this._ctx.lineCap = settingObj.lineCap;

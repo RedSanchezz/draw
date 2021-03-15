@@ -39,7 +39,9 @@ export default class ToolManager{
                 break;
             }
             default: {
-                let brush = new SketchBrush(this._canvas, this._ctx, this._paint);
+                let layoutManager = this._paint.getLayoutManager();
+                let obj = layoutManager.getCurrentLayout();
+                let brush = new SketchBrush(obj.canvas, obj.ctx, this._paint);
                 brush.create();
                 this._currentTool=brush;
                 break;

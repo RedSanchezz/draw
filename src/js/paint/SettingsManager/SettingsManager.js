@@ -10,6 +10,8 @@ export default class SettingsManager{
         this._dbHelper = new DBHelper();
         
     }
+
+    //установка настроек по умолчанию
     defaultSetting(){
         let style=getComputedStyle(document.querySelector(".canvas-block"));
 
@@ -21,6 +23,7 @@ export default class SettingsManager{
         this._ctx.lineCap = "round"; // определяет концы линий
         this._ctx.lineJoin = "round"; // как будут сходитться линии
     }
+    //сохранение в базу данных изображения
     async saveCanvas(){
         let style =getComputedStyle(this._canvas);
 
@@ -32,6 +35,7 @@ export default class SettingsManager{
             width: this._canvas.width
         });
     }
+    //загрузка из БД изображения
     async loadCanvas(callback){
         await this._dbHelper.open("canvasDB", 2);
         let imageData= await this._dbHelper.getByKey("imageData", "canvasDB");

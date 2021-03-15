@@ -17,16 +17,16 @@ export default class Brush extends Tool {
     getLineCap(){
         return this._ctx.lineCap;
     }
-    
     setColor(color){
+        let ctx = this._paint.getContext();
         console.log(color);
         if(this._alpha) color=ColorHelper.toRgba(color, this._alpha);
-        console.log("rgba:  " + color);
-        this._ctx.fillStyle=color;
-        this._ctx.strokeStyle=color;
+        ctx.fillStyle=color;
+        ctx.strokeStyle=color;
     }
     getColor(){
-        return this._ctx.strokeStyle;
+        let ctx = this._paint.getContext();
+        return ctx.strokeStyle;
     }
     //Задаем прозрачность кисти
     setAlpha(alpha){
@@ -39,10 +39,12 @@ export default class Brush extends Tool {
     }
     //ширина линии
     setLineWidth(width){
-        this._ctx.lineWidth=width;
+        let ctx = this._paint.getContext();
+        ctx.lineWidth=width;
     }
     getLineWidth(width){
-        return this._ctx.lineWidth;
+        let ctx = this._paint.getContext();
+        return ctx.lineWidth;
     }
 
 }
