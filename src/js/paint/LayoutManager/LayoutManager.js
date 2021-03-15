@@ -1,12 +1,13 @@
 //Класс для управления слоями
 export default class LayoutManager{
-    constructor(canvas, ctx){
+    constructor(canvas, ctx, paint){
         this._canvas = canvas;
         this._ctx = ctx;
         this._layoutList=[];
         this._init();
         //колбэк для управления слоями из оболочки
         this._callback=null;
+        this._paint= paint;
     }
     _init(){
         let defCanvas = document.createElement("canvas");
@@ -25,7 +26,6 @@ export default class LayoutManager{
         this._currentLayout = this._layoutList[0];
         
     }
-    
     //обновляем канвас, из всех слоев
     update(){
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
@@ -68,7 +68,8 @@ export default class LayoutManager{
         return this._currentLayout;
     }
 
-    setCurrentLayout(number, toolManager){
+    setCurrentLayout(number){
+        let toolManager = this._paint.getToolManager();
         this._currentLayout = this._layoutList[number];
         this._currentLayoutIndex = number;
         let tool=toolManager.getTool();
@@ -99,6 +100,36 @@ export default class LayoutManager{
         console.log(this._layoutList[index].show);
         this.update();
         if(this._callback) this._callback();
+    }
+    deleteLayout(index){
+        if(this._layoutList.length<=1){
+            alert("Нельзя удалить единственный слой !");
+            return;
+        }
+        if(this._currentLayoutIndex>=index){
+            console.log("Надо двигать !");
+            this.setCurrentLayout(this._currentLayoutIndex-1);
+        }
+        this._layoutList.splice(index,1);
+        this.update();
+        if(this._callback) this._callback();
+    }
+    swap(index1, index2){
+        if(index1<0 || index1 > this._layoutList.length-1 || index2<0 || index2 > this._layoutList.length-1) {
+            return;
+        }
+        let help = this._layoutList[index1];
+        this._layoutList[index1]=this._layoutList[index2];
+        this._layoutList[index2]=help;
+        this.setCurrentLayout(this._currentLayoutIndex);
+        this.update();
+        if(this._callback) this._callback();
+    }
+    combine(index1, index2){
+
+    }
+    isHidden(index){
+        return !this._layoutList[index].show;
     }
 }
 

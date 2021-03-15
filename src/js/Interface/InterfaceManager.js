@@ -116,7 +116,6 @@ export default class InterfaceManager{
             this._toolManager.setTool("brushWithoutOverlay");
         });
 
-
         let layoutBtn = document.getElementById("open-layout-btn");
 
         let layoutPanel = new LayoutPanel(this._paint);

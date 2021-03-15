@@ -10,7 +10,7 @@ export default class Paint{
 
         this._settingsManager = new SettingsManager(this._canvas, this._ctx);
         this._settingsManager.defaultSetting();
-        this._layoutManager = new LayoutManager(this._canvas, this._ctx);
+        this._layoutManager = new LayoutManager(this._canvas, this._ctx, this);
 
         this._toolManager.setTool("sketchBrush");
     }
