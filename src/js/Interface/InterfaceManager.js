@@ -1,4 +1,5 @@
 import ListenerManager from "../paint/ListenerManager/ListenerManager";
+import LayoutPanel from "./LayoutPanel/LayoutPanel";
 
 export default class InterfaceManager{
     
@@ -119,16 +120,10 @@ export default class InterfaceManager{
 
 
         let layoutBtn = document.getElementById("open-layout-btn");
-        let layoutPanel = document.querySelector(".top-panel__layout-panel");
+        let layoutPanel = new LayoutPanel(this._paint);
 
         layoutBtn.addEventListener("click", (e) => {
-            this.updateLayoutPanel(layoutManager);
-            if(layoutPanel.classList.contains("open")){
-                layoutPanel.classList.remove("open");
-            }
-            else{
-                layoutPanel.classList.add("open");
-            }
+            layoutPanel.toggle();
         });
 
         let layoutBtnAdd = document.querySelector(".layout-panel-add");
@@ -138,25 +133,5 @@ export default class InterfaceManager{
         });
     }
 
-    updateLayoutPanel(layoutManager){
-        let contentPanel = document.querySelector(".layout-panel__content");
-        contentPanel.innerHTML="";
-        let imgList=layoutManager.getImageList();
-        for(let i=0; i< imgList.length; i++){
-            let content =document.createElement("div");
-            content.classList.add("layout-panel__content-block");
-            let img = imgList[i];
-            img.style.height="200px";
-            img.style.width = "auto";
-            img.style.maxWidth="100%";
-            img.style.cursor = "pointer";
 
-            img.addEventListener("click", () => {
-                let index=img.getAttribute("data-index");
-                layoutManager.setCurrentLayout(index, this._toolManager);
-            });
-            content.append(img);
-            contentPanel.append(content);
-        }
-    }
 }

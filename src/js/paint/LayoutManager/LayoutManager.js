@@ -5,8 +5,8 @@ export default class LayoutManager{
         this._ctx = ctx;
         this._layoutList=[];
         this._init();
-
-        
+        //колбэк для управления слоями из оболочки
+        this._callback=null;
     }
     _init(){
         let defCanvas = document.createElement("canvas");
@@ -37,6 +37,7 @@ export default class LayoutManager{
         for(let i=0; i< this._layoutList.length; i++){
             this._ctx.drawImage(this._layoutList[i].canvas, 0, 0);
         }
+        if(this._callback) this._callback();
     }
     //Добавляем новый пустой слой
     addLayout(){
@@ -50,6 +51,8 @@ export default class LayoutManager{
             ctx:context
         }
         this._layoutList.push(obj);
+
+        if(this._callback) this._callback();
     }
     //получаем список картинок из слоев
     getImageList(){
@@ -80,7 +83,9 @@ export default class LayoutManager{
     getCurrentLayoutIndex(){
         return +this._currentLayoutIndex;
     }
-
+    setCallback(func){
+        this._callback=func;
+    }
 }
 
 /*
