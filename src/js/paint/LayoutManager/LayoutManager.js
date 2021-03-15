@@ -25,17 +25,12 @@ export default class LayoutManager{
         this._currentLayout = this._layoutList[0];
         
     }
+    
     //обновляем канвас, из всех слоев
-    updateCurrentLayout(imageData){
-        console.log("Обновляю карент");
-        console.log(imageData);
-        this._layoutList[this._currentLayoutIndex].ctx.putImageData(imageData, 0, 0);
-    }
-    //Обновляем текущий выбраный слой. 
     update(){
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
         for(let i=0; i< this._layoutList.length; i++){
-            this._ctx.drawImage(this._layoutList[i].canvas, 0, 0);
+            if(this._layoutList[i].show) this._ctx.drawImage(this._layoutList[i].canvas, 0, 0);
         }
         if(this._callback) this._callback();
     }
@@ -79,6 +74,8 @@ export default class LayoutManager{
         let tool=toolManager.getTool();
         tool.setLayout(this._currentLayout.canvas, this._currentLayout.ctx);
         console.log(this._currentLayout);
+
+        if(this._callback) this._callback();
     }
     getCurrentLayoutIndex(){
         return +this._currentLayoutIndex;
@@ -86,10 +83,27 @@ export default class LayoutManager{
     setCallback(func){
         this._callback=func;
     }
+    
+    toggleHide(index){
+        index=+index;
+        this._layoutList.forEach((value, i, array) => {
+            if(i===index){
+                if(array[i].show==false) {
+                    array[i].show=true;
+                }
+                else {
+                    array[i].show=false;
+                }
+            }
+        });
+        console.log(this._layoutList[index].show);
+        this.update();
+        if(this._callback) this._callback();
+    }
 }
 
 /*
-    Отображать: true,
+    show: true,
     canvas: canvas,
     ctx:ctx
 */

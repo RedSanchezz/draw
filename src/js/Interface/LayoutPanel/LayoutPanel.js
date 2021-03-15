@@ -5,6 +5,13 @@ export default class LayoutPanel{
         this._paint = paint;
         this._toolManager = paint.getToolManager();
         this._intervalId=null;
+
+        let layoutManager =this._paint.getLayoutManager();
+        let layoutBtnAdd = document.querySelector(".layout-panel-add");
+        layoutBtnAdd.addEventListener("click", (e) => {
+            layoutManager.addLayout();
+            layoutManager.setCurrentLayout(layoutManager.getCurrentLayoutIndex()+1, this._paint.getToolManager());
+        });
     }
     //open/close
     toggle(){
@@ -33,20 +40,53 @@ export default class LayoutPanel{
         let contentPanel = document.querySelector(".layout-panel__content");
         contentPanel.innerHTML="";
         let imgList=layoutManager.getImageList();
+
+        let currentLayoutIndex=layoutManager.getCurrentLayoutIndex();
+        console.log(currentLayoutIndex);
         for(let i=0; i< imgList.length; i++){
             let content =document.createElement("div");
             content.classList.add("layout-panel__content-block");
+            if(currentLayoutIndex==i) content.classList.add("active");
+
             let img = imgList[i];
-            img.style.height="200px";
-            img.style.width = "auto";
-            img.style.maxWidth="100%";
-            img.style.cursor = "pointer";
+            img.classList.add("layout-panel__content-img");
+        
+            let index=img.getAttribute("data-index");
+            content.setAttribute("data-index", index);
+
             img.addEventListener("click", () => {
-                let index=img.getAttribute("data-index");
                 layoutManager.setCurrentLayout(index, this._toolManager);
             });
+
+
+            let buttons = document.createElement("div");
+            buttons.classList.add("layout-panel__content-buttons");
+            
+            let delBtn = document.createElement("div");
+            delBtn.classList.add("layout__btn");
+            buttons.append(delBtn);
+
+            let downBtn = document.createElement("div");
+            downBtn.classList.add("layout__btn");
+            buttons.append(downBtn);
+
+            let upBtn = document.createElement("div");
+            upBtn.classList.add("layout__btn");
+            buttons.append(upBtn);
+
+            let showBtn = document.createElement("div");
+            showBtn.classList.add("layout__btn");
+            buttons.append(showBtn);
+            showBtn.addEventListener("click", (e) => {
+                layoutManager.toggleHide(index);
+                console.log("hide");
+            });
+            
+
+            content.append(buttons);
             content.append(img);
             contentPanel.append(content);
         }
     }
+    
 }

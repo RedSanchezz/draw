@@ -117,19 +117,12 @@ export default class InterfaceManager{
         });
 
 
-
-
         let layoutBtn = document.getElementById("open-layout-btn");
+
         let layoutPanel = new LayoutPanel(this._paint);
 
         layoutBtn.addEventListener("click", (e) => {
             layoutPanel.toggle();
-        });
-
-        let layoutBtnAdd = document.querySelector(".layout-panel-add");
-        layoutBtnAdd.addEventListener("click", (e) => {
-            layoutManager.addLayout();
-            layoutManager.setCurrentLayout(layoutManager.getCurrentLayoutIndex()+1, this._paint.getToolManager());
         });
     }
 
