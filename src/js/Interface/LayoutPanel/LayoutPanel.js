@@ -1,3 +1,5 @@
+import LayoutMenu from "./LayoutMenu/LayoutMenu";
+
 export default class LayoutPanel{
     constructor(paint){
         //блок для изменения
@@ -36,7 +38,7 @@ export default class LayoutPanel{
         this.updateLayoutPanel();
     }
     updateLayoutPanel(){
-        console.log("Обновляется");
+
         let layoutManager = this._paint.getLayoutManager();
         let contentPanel = document.querySelector(".layout-panel__content");
         contentPanel.innerHTML="";
@@ -86,7 +88,8 @@ export default class LayoutPanel{
             });
 
             content.addEventListener("contextmenu", (e) => {
-                this._createLayoutMenu(e.clientY, e.clientX, contentPanel);
+                let layoutMenu = new LayoutMenu(this._paint, content);
+                layoutMenu.create(e.clientX, e.clientY);
                 e.preventDefault();
             });
 
@@ -95,34 +98,6 @@ export default class LayoutPanel{
             contentPanel.append(content);
         }
     }
-
-
-
-
-    _createLayoutMenu(y, x, contentPanel){
-        let menu = document.createElement("div");
-        menu.classList.add("selectedMenu");
-        menu.style.top=y-15+ "px";
-        menu.style.left=x-15 + "px";
-    
-        let selectedMenuItemComb = document.createElement("div");
-        selectedMenuItemComb.classList.add("selectedMenuItem");
-        selectedMenuItemComb.textContent = "Обьеденить";
-        selectedMenuItemComb.addEventListener("click", (e) => {
-            
-        });
-
-
-        menu.append(selectedMenuItemComb);
-    
-        menu.addEventListener("mouseleave", (e) => {
-            menu.remove();
-        });
-        document.body.append(menu);
-    }
-
-
-
     _addLayoutBtn(i, index){
         let layoutManager = this._paint.getLayoutManager();
     

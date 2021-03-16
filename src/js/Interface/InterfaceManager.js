@@ -34,8 +34,7 @@ export default class InterfaceManager{
         let brushAlphaInp = document.getElementById("brush-alpha-inp");
         brushAlphaInp.value = brush.getAlpha();
         this._listenerManager.addListener(brushAlphaInp, "input", (e) => {
-            console.log(brushAlphaInp.value);
-            console.log("INPUT");
+
             brush.setAlpha(brushAlphaInp.value.replace(/,/, "."));
         });
 

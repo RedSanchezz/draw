@@ -1,0 +1,28 @@
+.selected-menu {
+    height: auto;
+    width: auto;
+    background-color: black;
+    position: fixed;
+    z-index: 10001;
+    transition: opacity 1s;
+    opacity: 1;
+}
+
+.selected-menu__item {
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    &:hover {
+        background-color: red;
+    }
+}
+
+.selected-menu-hide {
+    opacity: 0;
+}

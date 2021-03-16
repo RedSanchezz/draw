@@ -37,18 +37,15 @@ export default class Layout {
         }
         if(this._historyArr.length>40){
             this._historyArr.shift();
-            console.log("shift");
+
         }
         this._historyArr.push(this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height));
         this._positionInHistory = this._historyArr.length-1;
-        console.log(this._historyArr);
     }
     back(){
-        console.log("back1");
 
         if(this._positionInHistory!==0){ 
             this._positionInHistory-=1;
-            console.log(this._historyArr[this._positionInHistory] + "" + this._positionInHistory);
             this._ctx.putImageData(this._historyArr[this._positionInHistory],0,0);
             
             this._layoutManager.update();

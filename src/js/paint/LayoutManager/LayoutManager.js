@@ -49,6 +49,7 @@ export default class LayoutManager{
     }
     //получаем список картинок из слоев
     getImageList(){
+        console.log("imagelist"+this._layoutList.length);
         let imageList =[];
         for(let i=0; i< this._layoutList.length; i++){
 
@@ -67,14 +68,17 @@ export default class LayoutManager{
     }
 
     setCurrentLayout(number){
+
         let toolManager = this._paint.getToolManager();
+
         this._currentLayout = this._layoutList[number];
         this._currentLayoutIndex = number;
+
         let tool=toolManager.getTool();
         tool.setLayout(this._currentLayout.getCanvas(), this._currentLayout.getContext());
-        console.log(this._currentLayout);
 
         if(this._callback) this._callback();
+        
     }
 
     getCurrentLayoutIndex(){
@@ -94,18 +98,54 @@ export default class LayoutManager{
         if(this._callback) this._callback();
     }
     deleteLayout(index){
+        //если остался 1 слой, то просто очищаем его
         if(this._layoutList.length<=1){
             this._currentLayout.clear();
             this.update();
             if(this._callback) this._callback();
             return;
         }
+        //Если элемент который надо удалить находится выше нужного
         if(this._currentLayoutIndex>=index){
-            console.log("Надо двигать !");
             this.setCurrentLayout(this._currentLayoutIndex-1);
         }
         this._layoutList.splice(index,1);
+        this.setCurrentLayout(this._currentLayoutIndex);
         this.update();
+        if(this._callback) this._callback();
+    }
+
+    deleteLayouts(indexArray){
+        if(this._layoutList.length<=1){
+            this._currentLayout.clear();
+            this.update();
+            if(this._callback) this._callback();
+            return;
+        }
+        this._layoutList= this._layoutList.filter((value, index, array) => {
+            return !indexArray.includes(index);
+        });
+        console.log(this._layoutList);
+        if(this._layoutList.length==0){
+            console.log("Нулевая длинна");
+            this.addLayout();
+            this.setCurrentLayout(0);
+        }
+        else{
+            //если индекс больше допустимого
+            if(this._currentLayoutIndex >= this._layoutList.length-1){
+                this.setCurrentLayout(this._layoutList.length-1);
+                console.log(this._layoutList);
+                console.log("Больше чем нужно");
+            }
+            else{
+                this.setCurrentLayout(this._currentLayoutIndex);
+                console.log("Норм");
+            }
+        }
+        console.log(this._layoutList);
+        this.update();
+        console.log(this._layoutList);
         if(this._callback) this._callback();
     }
     swap(index1, index2){

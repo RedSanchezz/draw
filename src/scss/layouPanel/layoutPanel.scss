@@ -65,27 +65,7 @@
     background-color: darkred;
 }
 
-.selectedMenu {
-    height: auto;
-    width: 100px;
-    background-color: black;
-    position: fixed;
-    z-index: 10001;
-}
-
-.selectedMenuItem {
-    height: 40px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    cursor: pointer;
-    &:hover {
-        background-color: red;
-    }
-}
-
+@import "layoutMenu.scss";
 .layout__btn-del {
     background-image: url("../img/layout-btn/remove.svg")!important;
     background-size: cover;

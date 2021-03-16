@@ -60,9 +60,9 @@ export default class SketchBrush extends Brush{
             
             tmp_ctx.clearRect(0, 0, tmp_canvas.width, tmp_canvas.height);
             ppts=[];
-            this._settingManager.saveCanvas();
-            this._layoutManager.update();
-            this._layoutManager.getCurrentLayout().saveInHistory();
+            // this._settingManager.saveCanvas();
+            // this._layoutManager.update();
+            // this._layoutManager.getCurrentLayout().saveInHistory();
         });
 
 
