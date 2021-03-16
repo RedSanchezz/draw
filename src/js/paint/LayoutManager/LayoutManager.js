@@ -165,6 +165,13 @@ export default class LayoutManager{
     isHidden(index){
         return this._layoutList[index].isHidden();
     }
+    getLayoutList(){
+        return this._layoutList;
+    }
+    setLayout(layout, index){
+        this._layoutList[index]=layout;
+        this.update();
+    }
 }
 
 /*

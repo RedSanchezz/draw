@@ -30,6 +30,7 @@ export default class Layout {
     
     clear(){
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+        this._historyArr=[];
     }
     saveInHistory(){
         if(this._positionInHistory !== this._historyArr.length-1){

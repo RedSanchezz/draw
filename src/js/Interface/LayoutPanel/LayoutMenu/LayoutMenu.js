@@ -1,3 +1,5 @@
+import Layout from "../../../paint/LayoutManager/Layout";
+
 export default class LayoutMenu{
     constructor(paint, target){
         this._paint= paint;
@@ -26,7 +28,7 @@ export default class LayoutMenu{
         menuItemComb.classList.add("selected-menu__item");
         menuItemComb.textContent = "Обьеденить";
         menuItemComb.addEventListener("click", (e) => {
-            alert("Clicked !");
+            this._combine();
         });
 
         let menuItemDel = document.createElement("div");
@@ -60,7 +62,7 @@ export default class LayoutMenu{
     }
 
     _delete(){
-        console.log("__________________________________________");
+
         let layoutPanelBlock = document.querySelector(".layout-panel__content");
         let selected = layoutPanelBlock.querySelectorAll(".selected");
         console.log(selected);
@@ -73,5 +75,44 @@ export default class LayoutMenu{
             this._paint.getLayoutManager().deleteLayout(index);
         }
     }
-    
+
+    _combine(){
+
+        //ищем выделенные элементы
+        let layoutPanelBlock = document.querySelector(".layout-panel__content");
+        let selected = layoutPanelBlock.querySelectorAll(".selected");
+        if(selected.length<2) {
+            alert("Выберите хотя бы 2 слоя !");
+            return;
+        }
+        //получаем индексы выделенных элементов
+        let indexArr = Array.from(selected).map((value, index, array) => +value.getAttribute("data-index"));
+
+        let min = Math.min(...indexArr);
+        alert(min);
+
+        let layoutList=this._paint.getLayoutManager().getLayoutList();
+        let canvas = document.createElement("canvas");
+        canvas.height = this._paint.getCanvas().height;
+        canvas.width = this._paint.getCanvas().width;
+        let ctx= canvas.getContext("2d");
+
+        layoutList.forEach((value, index, array) => {
+            if(indexArr.includes(index)){
+                ctx.drawImage(value.getCanvas(), 0, 0);
+            }
+        });
+
+
+
+        let layout = new Layout(canvas, ctx, true, this._paint.getLayoutManager());
+
+        this._paint.getLayoutManager().setLayout(layout, min);
+        console.log(indexArr);
+        indexArr.splice(indexArr.indexOf(min), 1);
+        console.log(indexArr);
+        this._paint.getLayoutManager().deleteLayouts(indexArr);
+
+        this._paint.getLayoutManager().setCurrentLayout(min);
+    }
 }
