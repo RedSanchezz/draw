@@ -21,7 +21,6 @@ export default class SketchBrush extends Brush{
         
         this._listenerManager.addListener(tmp_canvas, "mousedown",(e) =>{
 
-            
             let settingObj=this._settingManager.getSettingObject();
 
             this._ctx.strokeStyle = settingObj.strokeStyle;

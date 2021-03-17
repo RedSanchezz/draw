@@ -75,10 +75,13 @@ export default class LayoutManager{
         this._currentLayoutIndex = number;
 
         let tool=toolManager.getTool();
+        console.log(this._currentLayout);
+        console.log(this._currentLayoutIndex);
+        console.log(this._layoutList);
+        
         tool.setLayout(this._currentLayout.getCanvas(), this._currentLayout.getContext());
 
         if(this._callback) this._callback();
-        
     }
 
     getCurrentLayoutIndex(){
@@ -106,7 +109,7 @@ export default class LayoutManager{
             return;
         }
         //Если элемент который надо удалить находится выше нужного
-        if(this._currentLayoutIndex>=index){
+        if(this._currentLayoutIndex>index){
             this.setCurrentLayout(this._currentLayoutIndex-1);
         }
         this._layoutList.splice(index,1);
@@ -152,13 +155,26 @@ export default class LayoutManager{
         if(index1<0 || index1 > this._layoutList.length-1 || index2<0 || index2 > this._layoutList.length-1) {
             return;
         }
+
         let help = this._layoutList[index1];
         this._layoutList[index1]=this._layoutList[index2];
         this._layoutList[index2]=help;
-        this.setCurrentLayout(this._currentLayoutIndex);
+
+        if(index1==this._currentLayoutIndex){
+            this.setCurrentLayout(index2);
+        }
+        else if(index2==this._currentLayoutIndex){
+            this.setCurrentLayout(index1);
+        } else {
+            this.setCurrentLayout(this._currentLayoutIndex);
+        }
+
         this.update();
         if(this._callback) this._callback();
     }
+
+
+
     combine(index1, index2){
 
     }
