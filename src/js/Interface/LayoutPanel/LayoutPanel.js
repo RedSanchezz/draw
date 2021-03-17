@@ -37,8 +37,8 @@ export default class LayoutPanel{
         layoutManager.setCurrentLayout(layoutManager.getCurrentLayoutIndex()+1, this._paint.getToolManager());
         this.updateLayoutPanel();
     }
-    updateLayoutPanel(){
 
+    updateLayoutPanel(){
         let layoutManager = this._paint.getLayoutManager();
         let contentPanel = document.querySelector(".layout-panel__content");
         contentPanel.innerHTML="";

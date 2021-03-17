@@ -43,13 +43,30 @@ export default class LayoutManager{
         let context = canvas.getContext("2d");
         let layout= new Layout(canvas, context, true, this);
 
-        this._layoutList.push(layout);
+        // this._layoutList.push(layout);
+        this._layoutList.splice(this._currentLayoutIndex+1, 0, layout);
+        this.update();
+    }
+    copyLayout(index){
+        let canvas = document.createElement("canvas");
+        canvas.width = this._canvas.width;
+        canvas.height=this._canvas.height;
+        let context = canvas.getContext("2d");
 
-        if(this._callback) this._callback();
+        context.drawImage(this._layoutList[index].getCanvas(),0,0);
+
+        let layout= new Layout(canvas, context, true, this);
+
+        this._layoutList.splice(index+1, 0, layout);
+        if(this._currentLayoutIndex>index){
+            this.setCurrentLayout(this._currentLayoutIndex+1);
+        } else {
+            console.log("Ошибка будет !");
+            this.update();
+        }
     }
     //получаем список картинок из слоев
     getImageList(){
-        console.log("imagelist"+this._layoutList.length);
         let imageList =[];
         for(let i=0; i< this._layoutList.length; i++){
 
@@ -68,7 +85,8 @@ export default class LayoutManager{
     }
 
     setCurrentLayout(number){
-
+        console.log("setCurLay");
+        if(number<0) number=0;
         let toolManager = this._paint.getToolManager();
 
         this._currentLayout = this._layoutList[number];
@@ -79,9 +97,10 @@ export default class LayoutManager{
         console.log(this._currentLayoutIndex);
         console.log(this._layoutList);
         
+        console.log(this._currentLayout);
         tool.setLayout(this._currentLayout.getCanvas(), this._currentLayout.getContext());
 
-        if(this._callback) this._callback();
+        this.update();
     }
 
     getCurrentLayoutIndex(){
@@ -98,37 +117,39 @@ export default class LayoutManager{
         this._layoutList[index].toggleHide();
 
         this.update();
-        if(this._callback) this._callback();
     }
     deleteLayout(index){
         //если остался 1 слой, то просто очищаем его
         if(this._layoutList.length<=1){
             this._currentLayout.clear();
             this.update();
-            if(this._callback) this._callback();
             return;
         }
         //Если элемент который надо удалить находится выше нужного
-        if(this._currentLayoutIndex>index){
+
+        this._layoutList.splice(index,1);
+        if(this._currentLayoutIndex>=index){
+            console.log("выше");
+            console.log(index);
             this.setCurrentLayout(this._currentLayoutIndex-1);
         }
-        this._layoutList.splice(index,1);
-        this.setCurrentLayout(this._currentLayoutIndex);
+        else{
+            console.log("Ниже");
+            this.setCurrentLayout(this._currentLayoutIndex);
+        }
         this.update();
-        if(this._callback) this._callback();
     }
 
     deleteLayouts(indexArray){
         if(this._layoutList.length<=1){
             this._currentLayout.clear();
             this.update();
-            if(this._callback) this._callback();
             return;
         }
         this._layoutList= this._layoutList.filter((value, index, array) => {
             return !indexArray.includes(index);
         });
-        console.log(this._layoutList);
+
         if(this._layoutList.length==0){
             console.log("Нулевая длинна");
             this.addLayout();
@@ -148,8 +169,6 @@ export default class LayoutManager{
         }
         console.log(this._layoutList);
         this.update();
-        console.log(this._layoutList);
-        if(this._callback) this._callback();
     }
     swap(index1, index2){
         if(index1<0 || index1 > this._layoutList.length-1 || index2<0 || index2 > this._layoutList.length-1) {
@@ -169,8 +188,6 @@ export default class LayoutManager{
             this.setCurrentLayout(this._currentLayoutIndex);
         }
 
-        this.update();
-        if(this._callback) this._callback();
     }
 
 
