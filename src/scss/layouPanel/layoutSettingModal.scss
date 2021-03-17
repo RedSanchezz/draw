@@ -1,0 +1,54 @@
+.layout-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(#000000, 0.7);
+    z-index: 1005;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.5s;
+}
+
+.layout-modal__inner {
+    display: block;
+    background-color: wheat;
+    width: 600px;
+    height: 300px;
+    border-radius: 20px;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.layout-modal__header {
+    border-bottom: 1px solid red;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    .layout-modal__close {
+        height: 20px;
+        width: 20px;
+        background-image: url("../img/layout-btn/remove.svg");
+        background-size: cover;
+        cursor: pointer;
+    }
+    .layout-modal__title {
+        font-size: 20px;
+        font-weight: 600;
+    }
+}
+
+.layout-modal__content {
+    padding: 20px;
+}
+
+.layout-modal-hidden {
+    background-color: rgba(#000000, 0);
+    .layout-modal__inner {
+        opacity: 0;
+    }
+}

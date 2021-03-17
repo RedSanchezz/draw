@@ -1,4 +1,5 @@
 import Layout from "../../../paint/LayoutManager/Layout";
+import LayoutSettingModal from "../LayoutSettingModal/LayoutSettingModal";
 
 export default class LayoutMenu{
     constructor(paint, target){
@@ -21,7 +22,7 @@ export default class LayoutMenu{
         menuItemCust.classList.add("selected-menu__item");
         menuItemCust.textContent = "Настройки";
         menuItemCust.addEventListener("click", (e) => {
-            alert("Clicked !");
+            this._setting();
         });
 
         let menuItemComb = document.createElement("div");
@@ -62,7 +63,6 @@ export default class LayoutMenu{
     }
 
     _delete(){
-
         let layoutPanelBlock = document.querySelector(".layout-panel__content");
         let selected = layoutPanelBlock.querySelectorAll(".selected");
         console.log(selected);
@@ -114,5 +114,13 @@ export default class LayoutMenu{
         this._paint.getLayoutManager().deleteLayouts(indexArr);
 
         this._paint.getLayoutManager().setCurrentLayout(min);
+    }
+
+    _setting(){
+        let settingModal = new LayoutSettingModal();
+        let index = +this._target.getAttribute("data-index");
+        let layout=this._paint.getLayoutManager().getLayoutList()[index];
+
+        settingModal.create(this._paint, layout);
     }
 }
