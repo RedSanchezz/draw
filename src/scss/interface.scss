@@ -2,10 +2,7 @@
 @import "brushPanel.scss";
 @import "instruments-panel.scss";
 @import "./layouPanel/layoutPanel.scss";
-$topPanelBg: gray;
-$bottomPanelBg: gray;
-$leftPanelBg: darkred;
-$rightPanelBg: gray;
+@import "ColorTable.scss";
 .canvas-block {
     width: 100vw;
     height: 75vh;
@@ -35,6 +32,7 @@ $rightPanelBg: gray;
 
 .top-panel__instuments-btn {
     position: absolute;
+    cursor: pointer;
     top: 50%;
     transform: translateY(-50%);
     left: 50px;

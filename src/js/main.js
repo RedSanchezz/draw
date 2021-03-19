@@ -11,9 +11,3 @@ settingManager.loadCanvas();
 
 interfaceManager.defaultSetting(paint.getLayoutManager());
 interfaceManager.setBrushPanel(toolManager.getTool());
-
-
-
-
-
-
