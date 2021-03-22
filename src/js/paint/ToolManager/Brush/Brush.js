@@ -30,6 +30,7 @@ export default class Brush extends Tool {
     }
     //Задаем прозрачность кисти
     setAlpha(alpha){
+        alpha = Math.floor(alpha*100)/100;
         console.log("alpha:"+alpha);
         this._alpha=alpha;
         this.setColor(this.getColor());

@@ -8,6 +8,11 @@
     height: 100%;
 }
 
+.brush-size {
+    display: flex;
+    flex-direction: column;
+}
+
 .color-block {
     width: 100px;
     .brush__color {
@@ -24,11 +29,6 @@
     display: flex;
     align-items: center;
     margin-right: 50px;
-}
-
-.brush-size {
-    display: flex;
-    align-items: center;
 }
 
 .brush-setting {

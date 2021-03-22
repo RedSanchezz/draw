@@ -1,14 +1,32 @@
-$topPanelBg: rgb(248, 191, 116);
-;
+$topPanelBg: rgb(103, 104, 104);
 //instruments panel
-$topPanelInstrumentsBg: rgb(148, 75, 75);
-$topPanelInstrumentsItemBg: orange;
-$topPanelInstrumentsHoverColor: yellow;
+$topPanelInstrumentsBg: rgb(67, 70, 71);
+$topPanelInstrumentsItemBg: rgb(115, 203, 167);
+$topPanelInstrumentsHoverColor: rgb(50, 70, 76);
 //brush panel
-$brushPanelBg: blanchedalmond;
-$brushPanelItem: darkred;
+$brushPanelBg: rgb(115, 203, 167);
+$brushPanelItem: rgb(115, 203, 167);
 $brushPanelItemHover: orange;
 //de
-$bottomPanelBg: rgb(248, 191, 116);
+$bottomPanelBg: rgb(38, 50, 56);
 $leftPanelBg: darkred;
 $rightPanelBg: gray;
+//colors
+$green: rgb(195, 232, 119);
+$lightGreen: rgb(115, 203, 167);
+$lightBlack: rgb(38, 50, 56);
+$darkBlack: rgb(31, 40, 46);
+$yellow: rgb(255, 179, 0);
+// $topPanelBg: rgb(248, 191, 116);
+// //instruments panel
+// $topPanelInstrumentsBg: rgb(148, 75, 75);
+// $topPanelInstrumentsItemBg: orange;
+// $topPanelInstrumentsHoverColor: yellow;
+// //brush panel
+// $brushPanelBg: blanchedalmond;
+// $brushPanelItem: darkred;
+// $brushPanelItemHover: orange;
+// //de
+// $bottomPanelBg: rgb(248, 191, 116);
+// $leftPanelBg: darkred;
+// $rightPanelBg: gray;
